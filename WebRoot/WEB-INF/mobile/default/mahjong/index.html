@@ -1,0 +1,87 @@
+<!--[arg staticPath,basePath,userType;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<base href="<%=basePath%>">
+<meta name="format-detection" content="telephone=no"/>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>麻将后台系统</title>
+<link rel="stylesheet" type="text/css" href="${staticPath}/css/index.css" />
+</head>
+<body>
+<!--轮播图片  -->
+	<!-- <div class="auto-show-box" style="margin-bottom: 0.2rem;">
+		<div class="auto-content-box">
+				<div><img style="width: 100%;height: 100%;" src="${staticPath}/image/BG.png" /></div>
+				<div><img style="width: 100%;height: 100%;" src="${staticPath}/image/taotitle.png" /></div>
+				<div><img style="width: 100%;height: 100%;" src="${staticPath}/image/logo1.png" /></div>
+				<div><img style="width: 100%;height: 100%;" src="${staticPath}/image/BG.png" /></div>
+				<div><img style="width: 100%;height: 100%;" src="${staticPath}/image/taotitle.png" /></div>
+		</div>
+	</div> -->
+	<div class="auto-show-box" style="margin-bottom: 0.2rem;">
+		<img style="width: 100%;height: 100%;" src="${staticPath}/image/qzindex.png" />
+	</div>
+	<!--[ if(userType==0){ ]-->
+	<div class="content express-function clearf">
+		<div class="fr function-right" style="float: left;">
+			<a class="mar-top-one" href="${basePath}/adminInfo/goToPerson" 
+				style="background: url(${staticPath}/image/personInfo.png) no-repeat;background-size:100% 100%;">
+			</a> 
+			<a class="mar-top-one" href="${basePath}/adminInfo/getAdmins" 
+				style="background: url(${staticPath}/image/dailishang.png) no-repeat;background-size:100% 100%;">
+			</a> 
+		</div>
+		<div class="fr function-right">
+			<a class="mar-top-one" href="${basePath}/gamerInfo/getPlayers" 
+				style="background: url(${staticPath}/image/playerInfo.png) no-repeat;background-size:100% 100%;">
+			</a> 
+			<a class="mar-top-one" href="${basePath}/gamerRecord/getPlayRecords" 
+				style="background: url(${staticPath}/image/gamerRecord.png) no-repeat;background-size:100% 100%;">
+			</a> 
+		</div>
+	</div>
+
+	<div class="content express-function clearf mar-top-one">
+		<div class="fr function-right" style="float: left;">
+			<a class="mar-top-one" href="${basePath}/roomInfo/getAllRooms" 
+				style="background: url(${staticPath}/image/roomInfo.png) no-repeat;background-size:100% 100%;">
+			</a> 
+			<!--给玩家充值  -->
+			<a class="mar-top-one" href="${basePath}/gamerPay/getAllRecords" 
+				style="background: url(${staticPath}/image/qzpayGamer.png) no-repeat;background-size:100% 100%;">
+			</a> 
+		</div>
+		<div class="fr function-right">
+		<!--给管理员充值  -->
+			<a class="mar-top-one" href="${basePath}/adminPay/getAllPayForAdmin" 
+				style="background: url(${staticPath}/image/qzpayAdmin.png) no-repeat;background-size:100% 100%;">
+			</a> 
+			<a class="mar-top-one" href="${basePath}/adminInfo/goToSetting" 
+				style="background: url(${staticPath}/image/shezhi.png) no-repeat;background-size:100% 100%;">
+			</a> 
+		</div>
+	</div>
+	<!--[ }else{ ]-->
+	<div class="content express-function clearf">
+		<div class="fr function-right" style="float: left;">
+			<a class="mar-top-one" href="${basePath}/adminInfo/goToPerson" 
+				style="background: url(${staticPath}/image/personInfo.png) no-repeat;background-size:100% 100%;">
+			</a> 
+		</div>
+		<div class="fr function-right">
+		<!--给玩家充值  -->
+			<a class="mar-top-one" href="${basePath}/gamerPay/getAllRecords" 
+				style="background: url(${staticPath}/image/payInfo.png) no-repeat;background-size:100% 100%;">
+			</a> 
+		</div>
+	</div>
+	<!--[ } ]-->
+	
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="${staticPath}/js/autoPlay_swipe.js"></script>
+</body>
+</html>

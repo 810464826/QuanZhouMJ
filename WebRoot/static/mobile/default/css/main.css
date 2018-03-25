@@ -1,0 +1,131 @@
+body{ margin: 0; padding: 0; font-family:"microsoft yahei",sans-serif; 
+		color: #444; background-color: #F4F4F4;
+	font-size: 14px; line-height: 1;}
+p{ line-height: 1; margin: 0; color: #444;}	
+a{ text-decoration: none; color: #fff;}
+a:active{ color: inherit;}
+input[type=number],input[type=password], input[type=search], input[type=tel], 
+input[type=text], select, textarea{ outline: none; font-size: 14px; font-family:"microsoft yahei",sans-serif; position: relative;
+	padding-top: 5px; padding-bottom: 5px; margin: 0;}
+table { border-spacing: 0; border-collapse: collapse; table-layout: fixed;}
+ul{ padding: 0; margin: 0;}
+li{ list-style-type: none;}
+.clearf:after{ display: block; content:""; clear: both;}
+
+/*************常用样式*******************/
+.box-shadow{ -webkit-box-shadow: 1px 2px 5px rgba(50,50,50,0.3); box-shadow: 1px 2px 5px rgba(50,50,50,0.3);
+	-moz-box-shadow: 1px 2px 5px rgba(50,50,50,0.3);}
+.fl{ float: left;} 
+.fr{ float: right;}
+.white{ background-color: #fff !important;}
+.content5{ padding: 0 5px;}
+.content10{ padding: 0 10px;}
+.content15{ padding: 0 15px;}
+.content20{ padding: 0 20px;}
+.content25{ padding: 0 25px;}
+.mar-bot-10{ margin-bottom: 10px !important;}
+.mar-bot-15{ margin-bottom: 15px !important;}
+.mar-bot-20{ margin-bottom: 20px !important;}
+.mar-bot-25{ margin-bottom: 25px !important;}
+.mar-bot-30{ margin-bottom: 30px !important;}
+.mui-icon{ z-index: 4; position: relative;}
+.mui-checkbox input[type=checkbox]:before{ font-size: 24px;}
+.mui-checkbox>input[type=checkbox]{ width: 24px; height: 24px;}
+.mui-icon .mui-badge{ line-height: 16.5px; height: 14px; width: 14px; text-align: center; padding: 0;}
+
+
+/****************页面头部样式********************/
+.mui-bar{ background: -webkit-linear-gradient(left, #ef9848 0%, #f38a57 52%,#f37e47 100%);
+	background: linear-gradient(left, #ef9848 0%, #f38a57 52%,#f37e47 100%); 
+	background: -o-linear-gradient(left, #ef9848 0%, #f38a57 52%,#f37e47 100%);
+	background: -moz-linear-gradient(left, #ef9848 0%, #f38a57 52%,#f37e47 100%);}
+.mui-bar .mui-icon{ color: #fff;}
+.mui-bar .mui-icon:active{ opacity: 0.8;}
+.mui-title{ color: #fff;}
+.head-right{ float: right; height: 100%; line-height: 44px; text-align: right; font-size: 14px; min-width: 45px;
+	display: inline-block; position: relative; z-index: 20; padding-right: 5px; color: #fff;}
+
+/****************按钮背景和颜色，文字颜色，边框颜色********************/
+.box-bg{ background-color: #FF712F !important; color: #fff !important;}
+.txt-color{ color: #FF712F !important;}
+.border-color{ border-color: #FF712F !important;}
+
+/*************按钮激活边框和内部颜色***************/
+.but-active{ border-color: #FF712F !important; color: #FF712F !important;}
+
+/*************元素激活下边框颜色***************/
+.class-active{ border-bottom: 2px solid #FF712F !important; color: #FF712F !important;}
+
+/*************图片轮播进度颜色***************/
+.mui-slider-indicator .mui-active.mui-indicator{ background-color: #FF712F;}
+
+/****************删除按钮弹出框样式********************/
+.fixd-bg{ position: fixed; width: 100%; height: 100%; z-index: 11; background-color: #000; opacity: 0.2; top: 0;}
+
+/****************顶部提示框样式********************/
+.count-point{ height: 30px; line-height: 30px; font-size: 12px; color: #fff; background-color: #ffc25b;}
+.count-point .mui-icon{ font-size: 30px;}
+
+/****************输入框样式********************/
+.input-box{ position: relative;}
+.input-name{ position: absolute; line-height: 40px; text-indent: 15px; z-index: 4;}
+.input-box>input{ border: none; border-bottom: 1px solid #d2d2d2;border-radius: 0; padding: 0; 
+	margin-bottom: 5px; text-indent: 100px;}
+
+/****************按钮样式********************/ 
+.boxBut{ width: 100%; height: 42px; line-height: 42px; text-align: center; margin: 20px auto;
+	background-color: #979797; color: #fff; border-radius: 5px; font-size: 16px;}
+.boxBut-active{ background: -webkit-linear-gradient(top, #FF912D 0%, #FF732F 52%,#FF712F 100%);
+	background: linear-gradient(top, #FF912D 0%, #FF732F 52%,#FF712F 100%); 
+	background: -o-linear-gradient(top, #FF912D 0%, #FF732F 52%,#FF712F 100%);
+	background: -moz-linear-gradient(top, #FF912D 0%, #FF732F 52%,#FF712F 100%); color: #fff !important;}
+
+/**********扫描页面样式***************/
+.mui-scan-bar{ background: #555; opacity: 0.8;}
+#scan-box{ position: absolute; width: 100%; height: 100%; bottom: 0; left: 0; background-color: #d2d2d2;
+	opacity: 0.8; z-index: 3;}
+
+	
+/**
+ * 个人信息的样式
+ */	
+.person_list{ background-color: #fff; padding: 0 15px; margin-top: 10px;}
+.person_list>li{ line-height: 45px; height: 46px; border-bottom: 1px solid #d2d2d2; position: relative;
+	padding-left: 30px; clear: both; color: #999;}
+.person_list>li:last-child{ border-bottom: none;}
+.person_img{ position: absolute; top: 0; left: 0; line-height: 1;}
+.person_img>img{ position: relative; top: 15px;}
+.person_item_left{ float: left; }
+.person_item_right{ float: right; font-family:"微软雅黑";}
+
+/**
+  * 我的样式
+  */
+ .header-my{
+	width: 100%; line-height: 50px; text-align: center; font-size: 24px; color: #fff;
+}
+
+.header-btoom{
+	margin-top: 30px; width: 100%; line-height: 30px; text-align: center; font-size: 16px; color: #fff;
+}
+.header-btoom1{
+	margin-top: 10px; width: 100%; line-height: 30px; text-align: center; font-size: 16px; color: #fff;
+}
+
+.div-my{
+	width: 100%; line-height: 50px; background: #fff;
+}
+
+.div-left{
+	width:50px;height:50px;border:1px solid none;float:left
+	} 
+.div-left{
+	width:50px;height:50px;border:1px solid none;float:rigth
+	} 	
+	
+	
+.my-title{ width:100%; height: 50px; }
+.my-left{ float:left; margin-top: 10px;}
+.my-center{}
+.my-right{float:right; margin-top: 10px}	
+	

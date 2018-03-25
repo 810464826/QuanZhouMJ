@@ -1,0 +1,92 @@
+<!--[arg staticPath,basePath,room;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>房间信息</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+<link rel="stylesheet" href="${staticPath}/css/main.css" />
+</head>
+<body>
+	<!-- <header>
+		<div class="header-my" 
+			style="background: url(${staticPath}/image/titleGreen.png) no-repeat;background-size:100% 100%;">${room.getRoomId()}</div>
+	</header> -->
+	<header>
+		<div class="my-title" style="background: url(${staticPath}/image/titleGreen.png) no-repeat;background-size:100% 100%;">
+			<div class="my-left">
+				<img id="backBtn" style='position:relative; z-index:99;' alt="" src="${staticPath}/image/back_new.png">
+			</div>
+			<div class="my-center" style="text-align:center;font-size: 24px;color: #fff; position:absolute; top:13px; left:0; width:100%;">
+				<span>房号 ${room.getRoomId()}</span>
+			</div>
+			<!-- <div class="my-right">
+				<img id="addAdmin" alt="" style='position:relative; z-index:99;' src="${staticPath}/image/add_new.png">
+			</div> -->
+		</div>
+	</header>
+	<ul class="person_list">
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/roomId.png"/></span>
+			<span class="person_item_left">玩家1ID</span>
+			<span class="person_item_right">${room.getGamerOneId()}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/roomId.png"/></span>
+			<span class="person_item_left">玩家2ID</span>
+			<span class="person_item_right">${room.getGamerTwoId()}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/roomId.png"/></span>
+			<span class="person_item_left">玩家3ID</span>
+			<span class="person_item_right">${room.getGamerThreeId()}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/roomId.png"/></span>
+			<span class="person_item_left">玩家4ID</span>
+			<span class="person_item_right">${room.getGamerFourId()}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/timem.png"/></span>
+			<span class="person_item_left">创建时间</span>
+			<span class="person_item_right">${room.getCreateTime()}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/timem.png"/></span>
+			<span class="person_item_left">结束时间</span>
+			<span class="person_item_right">${room.getEndTime()}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/jushu.png"/></span>
+			<span class="person_item_left">已用局数</span>
+			<span class="person_item_right">${room.getUseRounds()}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/rolem.png"/></span>
+			<span class="person_item_left">总局数</span>
+			<span class="person_item_right">${room.getTotalRounds()}</span>
+		</li>
+	</ul>
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+			$(this).parent().parent().find(".person-type").val( $(this).text() );
+		})
+		
+		$("#backBtn").click(function(){
+			window.history.go(-1);
+		})
+		
+	</script>
+</body>
+</html>

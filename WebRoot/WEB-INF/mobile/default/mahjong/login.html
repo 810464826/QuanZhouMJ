@@ -1,0 +1,73 @@
+<!--[ arg staticPath, basePath;  ]-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/myLogin.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.1.min.js"></script>
+	</head>
+	<body>
+	<div class="backgroundType" style="background: url(${staticPath}/image/background.png) no-repeat;
+			background-size: 100% 100%;"></div> 
+	<div class="titleType" style="background: url(${staticPath}/image/qzlogo.png) no-repeat;
+			background-size: 100% 100%;"></div>
+	<div class="inputBackGrond" style="background: url(${staticPath}/image/bigBack.png) no-repeat;
+			background-size: 100% 100%;">
+		<div class="login_box">
+			<div class="login_item">
+				<img src="${staticPath}/image/admin.png"/>
+				<input type="text" name="" id="user-name" value="" placeholder="用户名" />
+			</div>
+		</div>
+		<div class="login_box">
+			<div class="login_item">
+				<img src="${staticPath}/image/pwd1.png"/>
+				<input type="password" name="" id="user-pass" value="" placeholder="密码" />
+			</div>
+		</div>
+		<div class="login_button" id="login-but" style="background: url(${staticPath}/image/login.png) no-repeat;
+			background-size: 100% 100%;">
+			<div style="color:#EDEDED ;margin-top: 10px;">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;陆</div>
+		</div>	
+	</div>
+	</body>
+	<script type="text/javascript">
+	
+		$(function(){
+			$(".inputBackGrond").css("top", ($(window).height() - $(".inputBackGrond").height())/2 );
+			var name = localStorage.getItem("uitrs_userName");
+			if( name != ""||name != undefined ){
+				$("#user-name").val(name);
+				$("#user-pass").val(localStorage.getItem("uitrs_userKey"))
+			}
+		})
+		$("#login-but").click(function(){
+			var userId = $("#user-name").val();
+			var userPass = $("#user-pass").val();
+			$.ajax({
+				data : { 
+					username : userId,
+					password : userPass
+				},
+				dataType : "JSON",
+				type:"GET",
+				url:"adminInfo/login",
+				success : function(data){
+					if( data.result == "true" ){
+						localStorage.setItem("uitrs_userName", userId);
+						localStorage.setItem("uitrs_userKey", userPass);
+						location.href = "adminInfo/main";
+					} else {
+						alert("账号或密码错误，请重新输入");
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+	</script>
+</html>

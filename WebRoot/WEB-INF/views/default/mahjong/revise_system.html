@@ -1,0 +1,52 @@
+<!--[ arg staticPath, basePath, data;  ]-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="person-information editor-admin" data-infoId="${data.getId()}">
+			<div class="person-input-item">
+				<span class="person-input-name">公告类型：</span>
+				<input class="person-type" type="text" value="${data.getNoticeType()}" readonly="readonly" />
+				<ul class="add-user-list">
+					<li>系统公告</li>
+					<li>游戏公告</li>
+					<li>奖励公告</li>
+					<li>惩罚公告</li>
+				</ul>
+			</div>
+			<div class="person-input-item" style="height: inherit;">
+				<span class="person-input-name">公告内容：</span>
+				<textarea rows="6" cols="" placeholder="请输入少于200字的公告">${data.getNoticeContent()}</textarea>
+			</div>
+			<div><span class="mahiong-but" style="margin: 35px 0 20px 95px;">保存</span></div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+	
+		$(".person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+			$(this).parent().parent().find(".person-type").val( $(this).text() );
+		})
+		
+		$(".mahiong-but").click(function(){
+			var infoId = $(".person-information").attr("data-infoId");
+			var type = $(".person-type").val();
+			var text = $("textarea").val();
+			location.href="${basePath}/sysNotice/edit?id=" +infoId + "&noticeType="+type+ "&noticeContent="+text;
+		})
+	</script>
+</html>

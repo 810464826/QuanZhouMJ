@@ -1,0 +1,122 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_spriteFrames": {
+    "0": {
+      "__uuid__": "5759d3f7-2c6f-464a-84cb-f6a1b2e20c07"
+    },
+    "1": {
+      "__uuid__": "73a73269-f14f-4ebe-87f5-7bcfa8dcc469"
+    },
+    "2": {
+      "__uuid__": "b86159f5-4657-4008-8977-e1b0ec32c924"
+    },
+    "3": {
+      "__uuid__": "12713cb0-c7a1-4023-882c-d2881638c29c"
+    },
+    "4": {
+      "__uuid__": "28db6405-004c-4698-bf0d-46c80e37a8ea"
+    },
+    "5": {
+      "__uuid__": "96d6195a-db66-4675-863e-245173e4e246"
+    },
+    "6": {
+      "__uuid__": "cfd99025-e593-4909-809f-d2bf353a6204"
+    },
+    "7": {
+      "__uuid__": "7704c49f-bee8-42f0-84ca-20fa124b5d5d"
+    },
+    "8": {
+      "__uuid__": "b0866aa0-857c-42b6-b92c-f03e07c51247"
+    },
+    "9": {
+      "__uuid__": "5b2cabe0-f6a6-4790-bc4e-813f1705ca98"
+    },
+    "newhandWelfare": {
+      "__uuid__": "c7be1830-97ea-4cfd-b5db-276c016aa8ea"
+    },
+    "shareWelfare": {
+      "__uuid__": "dd244f0c-fb83-49a7-86b4-cfe9e3ee0bc5"
+    },
+    "border": {
+      "__uuid__": "822915cd-cfa1-424e-9b09-cb7fbb571311"
+    },
+    "inputBg": {
+      "__uuid__": "867ddcb5-6a89-4cdc-ac11-b26d81611a2b"
+    },
+    "devider": {
+      "__uuid__": "58dd7e0d-199c-4145-a0a0-27841adb9c27"
+    },
+    "createBg": {
+      "__uuid__": "c1a4d8e5-c312-482f-b157-a2c2da75d45a"
+    },
+    "seeOtherBtn": {
+      "__uuid__": "75fc0de2-ee9a-49b1-94fa-8dfb075409f3"
+    },
+    "seeBack": {
+      "__uuid__": "d9650681-0bd4-480b-a198-b0fcaad05cf5"
+    },
+    "createBtn": {
+      "__uuid__": "a0c676e3-6f2e-4c42-a110-f3b9b5c49462"
+    },
+    "close": {
+      "__uuid__": "cd2205e1-0fa6-46d0-b8ed-91a9ece1a18c"
+    },
+    "checkUpper": {
+      "__uuid__": "8ee39504-ccf5-40e9-a2b7-5c3369ce6f56"
+    },
+    "zhanJi": {
+      "__uuid__": "4cf3ddf6-a8cb-4817-95f0-121b424a6865"
+    },
+    "open": {
+      "__uuid__": "b9a4a6c8-77a6-4ea4-a837-58053595682b"
+    },
+    "optionUpper": {
+      "__uuid__": "0627a389-033e-4f39-8ded-38ec38398983"
+    },
+    "fenshu": {
+      "__uuid__": "cdd77c58-641f-4180-b601-9f1d0a279629"
+    },
+    "jushu": {
+      "__uuid__": "26fb3a94-9ac7-4c8e-ba25-1192affc12f4"
+    },
+    "diFen": {
+      "__uuid__": "f2aa9b9b-00f2-4106-aebf-448e6f358000"
+    },
+    "fanXing": {
+      "__uuid__": "a448fe4f-bf11-4173-86fa-e4e263768f6b"
+    },
+    "setDismissBtn": {
+      "__uuid__": "56bc7cb0-201b-49ac-ac94-06c8a037a176"
+    },
+    "goBuyBtn": {
+      "__uuid__": "313e08d8-e63f-40e9-a9a5-c0dd37da8057"
+    },
+    "singleBg": {
+      "__uuid__": "98b18125-3c34-4cbe-927a-786c0e6fe5b8"
+    },
+    "optionBg": {
+      "__uuid__": "9e69d4a1-c221-4c50-adaa-29598e026b3d"
+    },
+    "borderFrame": {
+      "__uuid__": "64cf0336-88e9-4e43-97f4-9b1f044448b5"
+    },
+    "checkBg": {
+      "__uuid__": "67f2daa9-701c-46fa-b45f-17f54fb1a1fc"
+    },
+    "singleUpper": {
+      "__uuid__": "538144db-3d36-467a-9da3-af0b0353beb5"
+    },
+    "orderFrame": {
+      "__uuid__": "df9cd95b-1e85-4083-9bff-237b60476e5e"
+    },
+    "del": {
+      "__uuid__": "6bc1b488-b027-4980-bcce-d0bd770d4abb"
+    },
+    "reset": {
+      "__uuid__": "232fe1c3-d3d2-46a9-8f7e-64448c2aef90"
+    },
+    "slideIcon": {
+      "__uuid__": "c096d8ad-3848-41c1-b1d4-5a6ceb946d1f"
+    }
+  }
+}

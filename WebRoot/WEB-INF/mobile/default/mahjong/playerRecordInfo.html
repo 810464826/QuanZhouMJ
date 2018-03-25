@@ -1,0 +1,54 @@
+<!--[arg staticPath,basePath,record;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>玩家成绩</title>
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" type="text/css" href="${staticPath}/css/index.css" />
+</head>
+<body>
+	<div class="header white no-border">
+		<div class="back backBtn">
+			<img src="${staticPath}/img/back.png" alt="" />
+		</div>
+		<span class="title-center">${record.getGamerId()}</span>
+	</div>
+	
+	<!--头部栏结束-->
+		<table class="white mar-top-two" data-name="" style="width: 100%;">
+			<tbody>
+			<tr class="border-top  adreess-information">
+				<td class="information-left" style="width: 30%;"><span>总局数</span></td>
+				<td class="information-right"><input type="text"
+					value="${record.getTotalRounds()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>总正积分</span></td>
+				<td class="information-right"><input type="text"
+					value="${record.getWinPoints()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>总负积分</span></td>
+				<td class="information-right"><input type="text"
+					value="${record.getLostPoints()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>胜利局数</span></td>
+				<td class="information-right"><input type="text"
+					value="${record.getWinRounds()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>最佳战绩</span></td>
+				<td class="information-right"><input type="text"
+					value="${record.getBestWin()}" /></td>
+			</tr>
+			</tbody>
+	</table>
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!--[ arg staticPath,data,type, basePath,curentPage,totalPages ;  ]-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="manager-head">
+			<div class="person-input-item">
+				<span class="person-input-name">玩家ID：</span>
+				<input type="text" value="" id="player_id"/>
+			</div>
+			<div class="manager-button">
+				<span class="mahiong-but" id="check-admin" style="margin-right: 40px;">查询</span>
+				<span class="mahiong-but admin-new-add" style="width: 120px;">充值房卡</span>
+			</div>
+		</div>
+		
+		<table border="1" class="manager-table">
+			<thead>
+				<tr>
+					<th>玩家ID</th>
+					<th>充值商ID</th>
+					<th>充值金额</th>
+					<th>充值类型</th>
+					<th>充值时间</th>
+				</tr>
+			</thead>
+			<tbody class="person-table"></tbody>
+		</table>
+		<div>
+			<div class="manager-page-check">
+				<span class="manager-but manager-first-but" style="left: 0;">上一页</span>
+				<span id="admin-page">1</span>
+				<span class="manager-but manager-second-but" style="right: 0;">下一页</span>
+			</div>
+			<div class="manager-page-txt">当前&nbsp;<span id="admin-curent"></span>&nbsp;条，共&nbsp;<span id="admin-total"></span>&nbsp;条</div>
+		</div>
+		
+		<div style="display: none;">
+			<table>
+				<tr class="person-obj">
+					<td class="gamerId"></td>
+					<td class="adminId"></td>
+					<td class="payMoney"></td>
+					<td class="payType"></td>
+					<td class="payTime"></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		
+		$(function(){
+			personAjax( 1 );
+			
+			$(".admin-new-add").click(function(){
+				location.href = '${basePath}/gamerPay/toAddCard';
+			})
+		})
+		
+		$(".manager-second-but").click(function(){//点击下一页
+			var total = Number( $("#admin-total").text() );
+			var page = Number( $("#admin-page").text() );
+			if( total > page ){
+				personAjax( page + 1 );
+			}
+		})
+		
+		$(".manager-first-but").click(function(){//点击上一页
+			var page = Number( $("#admin-page").text() );
+			if( page > 1 ){
+				personAjax( page - 1 );
+			}
+		})
+		
+		$("#check-admin").click(function(){
+				var player_id = $("#player_id").val();
+				$.ajax({
+					data : { 
+						gamerId : player_id
+					},
+					type:"GET",
+					dataType : "JSON",
+					url:"${basePath}/gamerPay/getByGamerId",
+					success : function(data){
+						if( data == false ){
+							$(".person-table").html("");
+							$("#admin-curent").text( "1/1" );
+							$("#admin-total").text( '1' );
+							$("#admin-page").text( '1' );
+						} else {
+							$(".person-table").html("");
+							$("#admin-curent").text( data.currentPage + "/" + data.totalPages );
+							$("#admin-total").text( data.totalPages );
+							$("#admin-page").text( data.currentPage );
+							for( var i = 0; i < data.list.length; i++ ){
+								var adminObj = $(".person-obj:eq(0)").clone(true);
+								var adminArray = data.list[i];
+								adminObj.find(".gamerId").text( adminArray.gamerId );
+								adminObj.find(".adminId").text( adminArray.adminId );
+								adminObj.find(".payMoney").text( adminArray.payMoney );
+								adminObj.find(".payTime").text( adminArray.payTime );
+								adminObj.find(".payType").text( adminArray.payType );
+								$(".person-table").append( adminObj );
+							}
+						}
+					},
+					error : function(){
+						alert("网络连接异常，请稍后再试");
+					}
+				});
+			})
+		
+		function personAjax( page ){
+			$.ajax({
+				data : { curentPage : page },
+				type:"GET",
+				url:"${basePath}/gamerPay/getAll",
+				success : function(data){
+					$(".person-table").html("");
+					$("#admin-curent").text( data.curentPage + "/" + data.totalPages );
+					$("#admin-total").text( data.totalPages );
+					$("#admin-page").text( data.curentPage );
+					for( var i = 0; i < data.message.length; i++ ){
+						var adminObj = $(".person-obj:eq(0)").clone(true);
+						var adminArray = JSON.parse( data.message[i] );
+						adminObj.find(".gamerId").text( adminArray.gamerId );
+						adminObj.find(".adminId").text( adminArray.adminId );
+						adminObj.find(".payMoney").text( adminArray.payMoney );
+						adminObj.find(".payTime").text( adminArray.payTime );
+						adminObj.find(".payType").text( adminArray.payType );
+						$(".person-table").append( adminObj );
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		}
+	</script>
+</html>

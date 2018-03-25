@@ -1,0 +1,160 @@
+<!--[arg staticPath,basePath;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>新增管理员</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+<link rel="stylesheet" href="${staticPath}/css/main.css" />
+<link rel="stylesheet" href="${staticPath}/css/edit.css" />
+</head>
+<body>
+	<header>
+		<div class="my-title" style="background: url(${staticPath}/image/titleRed.png) no-repeat;background-size:100% 100%;">
+			<div class="my-left">
+				<img id="backBtn" style='position:relative; z-index:99;' alt="" src="${staticPath}/image/back_new.png">
+			</div>
+			<div class="my-center" style="text-align:center;font-size: 24px;color: #fff; position:absolute; top:13px; left:0; width:100%;">
+				<span>新增代理商</span>
+			</div>
+			<!-- <div class="my-right">
+				<img id="addAdmin" alt="" style='position:relative; z-index:99;' src="${staticPath}/image/add_new.png">
+			</div> -->
+		</div>
+	</header>
+	<ul class="person_list">
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/namem.png"/>
+				<span>用户名</span>
+			</div>
+			<input type="text" name="" id="username" value="" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/namem.png"/>
+				<span>房卡总数</span>
+			</div>
+			<input type="text" name="" id="pay_cardsAll" value="" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/namem.png"/>
+				<span>剩余房卡数</span>
+			</div>
+			<input type="text" name="" id="pay_cardsLeft" value="" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/rolem.png"/>
+				<span>角色</span>
+			</div>
+				<input class="person-type" type="text" id="type"  value="" readonly="readonly" data-type="0" />
+				<ul class="add-user-list">
+					<li data-type="1">普通管理员</li>
+					<li data-type="0">超级管理员</li>
+				</ul>
+		</li>
+		<!-- <li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/rolem.png"/>
+				<span>可否登陆</span>
+			</div>
+				<input class="person-type" type="text" id="login"  value="" readonly="readonly" data-type="0" />
+				<ul class="add-user-list">
+					<li data-type="1">不可登录</li>
+					<li data-type="0">可以登陆</li>
+				</ul>
+		</li> -->
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/phonem.png"/>
+				<span>电话</span>
+			</div>
+			<input type="number" name="" id="phone" value="" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/ipm.png"/>
+				<span>密码</span>
+			</div>
+			<input type="password" name="" id="password" value="" />
+		</li>
+		<!-- <li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/ipm.png"/>
+				<span>IP地址</span>
+			</div>
+			<input type="text" name="" id="ips" value="" />
+		</li> -->
+		<!-- <li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/timem.png"/>
+				<span>登陆时间</span>
+			</div>
+			<input type="text" name="" id="time" value="" />
+		</li> -->
+	</ul>
+		<header>
+		<div class="header-btoom"  id="mahiong_but"
+			style="background: url(${staticPath}/image/button.png) no-repeat;background-size:100% 100%;">保&nbsp;&nbsp;&nbsp;存</div>
+	</header>
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+			$(this).parent().parent().find(".person-type").val( $(this).text() );
+		})
+		
+		$("#backBtn").click(function(){
+			window.history.go(-1);
+		})
+		
+		$("#mahiong_but").click(function(){
+			var username = $("#username").val();
+			var pay_cardsAll = $("#pay_cardsAll").val();
+			var pay_cardsLeft = $("#pay_cardsLeft").val();
+			var pass = $("#password").val();
+			var type = $("#type").attr("data-type");
+			var login = $("#login").attr("data-type");
+			var phone = $("#phone").val();
+			var phoneReg = new RegExp(/^[1]\d{10}$/);
+			if( !/^[1]\d{10}$/.test(phone) ){
+				alert("请输入正确的手机号码");
+				return;
+			}
+			$.ajax({
+				data : {
+					password : pass,
+					username : username,
+					telephone : phone,
+					sysType : type,
+					enableLogin : login,
+					pay_cardsLeft : pay_cardsLeft,
+					pay_cardsAll : pay_cardsAll
+				},
+				type : "GET",
+				url : "${basePath}/adminInfo/checkName",
+				dataType : "JSON",
+				success : function(data){
+					if( data.result == true ){
+						location.href = "${basePath}/adminInfo/getAdmins";
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+	</script>
+</body>
+</html>

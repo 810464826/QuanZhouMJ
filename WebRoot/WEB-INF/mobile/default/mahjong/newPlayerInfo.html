@@ -1,0 +1,174 @@
+<!--[arg staticPath,basePath,player,person;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>玩家信息</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+<link rel="stylesheet" href="${staticPath}/css/main.css" />
+<link rel="stylesheet" href="${staticPath}/css/edit.css" />
+</head>
+<body>
+	<header>
+		<div class="my-title" style="background: url(${staticPath}/image/titleYellow.png) no-repeat;background-size:100% 100%;">
+			<div class="my-left">
+				<img id="backBtn" style='position:relative; z-index:99;' alt="" src="${staticPath}/image/back_new.png">
+			</div>
+			<div class="my-center" style="text-align:center;font-size: 24px;color: #fff; position:absolute; top:13px; left:0; width:100%;">
+				<span>${player.getNickName()}</span>
+			</div>
+			<!-- <div class="my-right">
+				<img id="addCard" alt="" style='position:relative; z-index:99;' src="${staticPath}/image/add_new.png">
+			</div> -->
+		</div>
+	</header>
+	<input type="hidden" name="" id="id" value="${player.getId()}" />
+	<input type="hidden" name="" id="pic" value="${player.getHeadFace()}" />
+	<ul class="person_list">
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/rolem.png"/>
+				<span>玩家ID</span>
+			</div>
+			<input type="text" name="" id="openId" value="${player.getId()}" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/rolem.png"/>
+				<span>微信ID</span>
+			</div>
+			<input type="text" name="" id="openId" value="${player.getOpenId()}" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/xingbie.png"/>
+				<span>性别</span>
+			</div>
+				<!--[ if(player.getSex() == 1 ){  ]-->
+					<input class="person-type" type="text" id="sex"  value="男" readonly="readonly" data-type="1" />
+				<!--[ }else{ ]-->
+					<input class="person-type" type="text" id="sex"  value="女" readonly="readonly" data-type="0" />
+				<!--[ } ]-->
+				<ul class="add-user-list">
+					<li data-type="1">男</li>
+					<li data-type="0">女</li>
+				</ul>	
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/nicheng.png"/>
+				<span>昵称</span>
+			</div>
+			<input type="text" name="" id="name" value="${player.getNickName()}" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/nicheng.png"/>
+				<span>用户头像</span>
+			</div>
+			<img class="person_item_right" style="width:40px;height:40px;margin-top: 3px" src="${player.getHeadFace()}" />
+			<!-- <input type="text" name="" id="name" value="${player.getNickName()}" /> -->
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/roomCard.png"/>
+				<span>房卡总数</span>
+			</div>
+			<input type="text" name="" id="nums" value="${player.getTotalCards()}" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/roomCard.png"/>
+				<span>剩余房卡</span>
+			</div>
+			<input type="text" name="" id="num" value="${player.getSurplusCards()}" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/phonem.png"/>
+				<span>电话</span>
+			</div>
+			<input type="text" name="" id="phone" value="${player.getTelephone()}" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/QQ.png"/>
+				<span>QQ</span>
+			</div>
+			<input type="text" name="" id="QQ" value="${player.getQqNum()}" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/sahngji.png"/>
+				<span>父级ID</span>
+			</div>
+			<input type="text" name="" id="parentId" value="${player.getParentId()}" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/fenxiang.png"/>
+				<span>分享次数</span>
+			</div>
+			<input type="text" name="" id="shareNum" value="${player.getShareNum()}" />
+		</li>
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/timem.png"/>
+				<span>分享时间</span>
+			</div>
+			<input type="text" name="" id="shareTime" value="${player.getShareTime()}" />
+		</li>
+	</ul>
+	<!--[ if( person.getSysType() == 0 ){ ]-->
+	<header>
+		<div class="header-btoom" id='mahiong_but'
+			style="background: url(${staticPath}/image/button.png) no-repeat;background-size:100% 100%;">修&nbsp;&nbsp;&nbsp;改</div>
+	</header>
+	<!--[ } ]-->
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+			$(this).parent().parent().find(".person-type").val( $(this).text() );
+		})
+		$("#backBtn").click(function(){
+			window.history.go(-1);
+		})
+		
+		$("#mahiong_but").click(function(){
+			var id = $("#id").val();
+			var pic = $("#pic").val();
+			var name = $("#name").val();
+			var openId = $("#openId").val();
+			var sex = $("#sex").attr("data-type");
+			var nums = $("#nums").val();
+			var num = $("#num").val();
+			//var login = $("#login").attr("data-type");
+			var phone = $("#phone").val();
+			var QQ = $("#QQ").val();
+			var phoneReg = new RegExp(/^[1]\d{10}$/);
+			if( !/^[1]\d{10}$/.test(phone) ){
+				alert("请输入正确的手机号码");
+				return;
+			}
+			location.href="${basePath}/gamerInfo/editGammer?id=" +id+"&openId=" +openId
+			+"&sex=" +sex
+			+"&name=" +name
+			+"&pic=" +pic
+			+"&nums=" +nums
+			+"&num=" +num
+			+"&phone=" +phone
+			+"&QQ=" +QQ;
+		})
+	</script>
+</body>
+</html>

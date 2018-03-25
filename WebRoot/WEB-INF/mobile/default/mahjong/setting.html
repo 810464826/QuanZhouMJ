@@ -1,0 +1,57 @@
+<!--[arg staticPath,basePath,userType;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<base href="<%=basePath%>">
+<meta name="format-detection" content="telephone=no"/>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>麻将后台系统</title>
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+<link rel="stylesheet" href="${staticPath}/css/main.css" />
+<link rel="stylesheet" href="${staticPath}/css/edit.css" />
+</head>
+<body>
+	<header>
+		<div class="my-title" style="background: url(${staticPath}/image/titleRed.png) no-repeat;background-size:100% 100%;">
+			<div class="my-left">
+				<img id="backBtn" style='position:relative; z-index:99;' alt="" src="${staticPath}/image/back_new.png">
+			</div>
+			<div class="my-center" style="text-align:center;font-size: 24px;color: #fff; position:absolute; top:13px; left:0; width:100%;">
+				<span>系统设置</span>
+			</div>
+			<!-- <div class="my-right">
+				<img id="addAdmin" alt="" style='position:relative; z-index:99;' src="${staticPath}/image/add_new.png">
+			</div> -->
+		</div>
+	</header>
+	<div class="content express-function clearf" style="margin-top: 20px;">
+		<div class="fr function-right" style="float: left;">
+			<a class="mar-top-one" href="${basePath}/adminInfo/getAllTypes" 
+				style="background: url(${staticPath}/image/fangka.png) no-repeat;background-size:100% 100%;">
+			</a> 
+			<a class="mar-top-one" href="${basePath}/adminInfo/getProfits" 
+				style="background: url(${staticPath}/image/yingli.png) no-repeat;background-size:100% 100%;">
+			</a> 
+		</div>
+		
+		<div class="fr function-right">
+			<a class="mar-top-one" href="${basePath}/adminInfo/setBili" 
+				style="background: url(${staticPath}/image/bili.png) no-repeat;background-size:100% 100%;">
+			</a> 
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="${staticPath}/js/autoPlay_swipe.js"></script>
+	<script type="text/javascript">
+		$("#backBtn").click(function(){
+			window.history.go(-1);
+		})	
+	</script>
+</body>
+</html>

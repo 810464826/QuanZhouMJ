@@ -1,0 +1,53 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_spriteFrames": {
+    "msgBg": {
+      "__uuid__": "a5252423-084c-4a87-afa8-c22a63d3edb2"
+    },
+    "chooseBg": {
+      "__uuid__": "cfde8375-0b73-4f17-b724-a385ce8cf965"
+    },
+    "wordDevider": {
+      "__uuid__": "5e3582c2-d2d4-4ddd-b6f9-2cb0749148e6"
+    },
+    "checked": {
+      "__uuid__": "35d9f57e-7345-4d82-805b-8408b62001c2"
+    },
+    "bottomBg": {
+      "__uuid__": "97685a5d-cf09-4ff2-b1e8-4bb6b14f5bf9"
+    },
+    "msgAlertL": {
+      "__uuid__": "461fd5e3-80ac-46f2-a85a-f2275d88c9df"
+    },
+    "msgAlertR": {
+      "__uuid__": "ab3638df-661b-4d2b-8c8a-8b9b933ad112"
+    },
+    "faceAlertL": {
+      "__uuid__": "157707e0-19dd-4da5-ae27-59d81f914d63"
+    },
+    "faceAlertR": {
+      "__uuid__": "48dd8ec6-bbd8-4c33-990c-7f75accaada8"
+    },
+    "bg": {
+      "__uuid__": "b5182d18-f0ac-49d5-9ee4-896710d20ac7"
+    },
+    "n": {
+      "__uuid__": "ea124bee-1aac-4780-b83a-28503e0df51c"
+    },
+    "s": {
+      "__uuid__": "15f466f6-28c4-4463-b861-3bac0db3d785"
+    },
+    "e": {
+      "__uuid__": "153ff32b-0dba-4538-a2ab-1f19185defbe"
+    },
+    "w": {
+      "__uuid__": "5f2c0269-3358-4624-be33-fc72ed9ee98b"
+    },
+    "face": {
+      "__uuid__": "1a7da9de-f30d-4f64-b366-615fba09e0e2"
+    },
+    "msg": {
+      "__uuid__": "cfbf2987-c1e0-4e06-80b1-420259968ff4"
+    }
+  }
+}

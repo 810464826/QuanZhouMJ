@@ -1,0 +1,104 @@
+<!--[arg staticPath,basePath,types;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>管理员信息</title>
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+<body>
+	<div class="header white no-border">
+		<div class="back backBtn">
+			<img src="${staticPath}/img/back.png" alt="" />
+		</div>
+		<span class="title-center">新增管理员</span>
+	</div>
+		<table class="white mar-top-two" data-name="" style="width: 100%;">
+			<tr class="border-top  adreess-information">
+				<td class="information-left" style="width: 30%;"><span>用户名</span></td>
+				<td class="information-right"><input type="text" 
+					id="username" id="add-name"
+					value="" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>密码</span></td>
+				<td class="information-right"><input type="password"
+					 id="password" id="add-phone"
+					value="" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>类型</span></td>
+				<td class="information-right">
+					<input class="person-type" type="text" id="type"   readonly="readonly" data-type="0" />
+				<ul class="add-user-list">
+					<li data-type="1">普通管理员</li>
+					<li data-type="0">超级管理员</li>
+				</ul>
+				</td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>房卡数</span></td>
+				<td class="information-right"><input type="text"
+					id="payCards" id="add-phone"
+					value="" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>电话</span></td>
+				<td class="information-right"><input type="text"
+					id="telephone" id="add-phone"
+					value="" /></td>
+			</tr>
+	</table>
+		<input type="button" id="mahiong_but" value="确认" />
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+			$(this).parent().parent().find(".person-type").val( $(this).text() );
+		})
+		
+		$("#mahiong_but").click(function(){
+			var username = $("#username").val();
+			var pay_cards = $("#payCards").val();
+			var pass = $("#password").val();
+			var type = $("#type").attr("data-type");
+			var phone = $("#telephone").val();
+			var phoneReg = new RegExp(/^[1]\d{10}$/);
+			if( !/^[1]\d{10}$/.test(phone) ){
+				alert("请输入正确的手机号码");
+				return;
+			}
+			$.ajax({
+				data : {  
+					username : username,
+					password : pass,
+					telephone : phone,
+					sysType : type,
+					payCards : pay_cards,
+				},
+				type : "GET",
+				url : "${basePath}/adminInfo/addNewAdmin",
+				dataType : "JSON",
+				success : function(data){
+					if( data.result == true ){
+						location.href = "${basePath}/adminInfo/getAdmins";
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+	</script>
+</body>
+</html>

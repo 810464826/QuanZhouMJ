@@ -1,0 +1,178 @@
+<!--[ arg staticPath,data, basePath,curentPage,totalPages ,allTypes ;  ]-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="manager-head">
+			<div class="person-input-item">
+				<span class="person-input-name">类型：</span>
+				<input type="text" class="person-type" value="" id="cardType" readonly="readonly"/>
+				<ul class="add-user-list">
+				<!--[ loop(type : allTypes){ ]-->
+					<li>${type}</li>
+				<!--[ } ]-->
+				</ul>
+			</div>
+			<div class="manager-button">
+				<span class="mahiong-but" id="systemBut" style="margin-right: 40px;">查询</span>
+				<span class="mahiong-but admin-new-add" style="width: 120px;">新增类型</span>
+			</div>
+		</div>
+		
+		<table border="1" class="manager-table">
+			<thead>
+				<tr>
+					<th>类型名称</th>
+					<th>充值金额</th>
+					<th>房卡数</th>
+					<th>操 作</th>
+				</tr>
+			</thead>
+			<tbody class="person-table"></tbody>
+		</table>
+		<div style="position: relative;">
+			<div class="manager-page-check">
+				<span class="manager-but manager-first-but" style="left: 0;">上一页</span>
+				<span id="admin-page">1</span>
+				<span class="manager-but manager-second-but" style="right: 0;">下一页</span>
+			</div>
+			<div class="manager-page-txt">当前&nbsp;<span id="admin-curent"></span>&nbsp;页，共&nbsp;<span id="admin-total"></span>&nbsp;页</div>
+		</div>
+		
+		<div style="display: none;">
+			<table>
+				<tr class="person-obj" data-id="">
+					<td class="person-typeName"></td>
+					<td class="person-cardMoney"></td>
+					<td class="person-cardNum"></td>
+					<td><a class="manager-revise">修改</a><span class="manager-delete">删除</span></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		
+		$(function(){
+			personAjax( 1 );
+			
+			$(".person-type").click(function(){
+				$(".add-user-list").toggle();	
+			})
+			
+			$(".add-user-list>li").click(function(){
+				$(this).parent().hide();
+				$(".person-type").val( $(this).text() );
+			})
+		})
+		
+		$(".manager-delete").click(function(){//确定删除类型
+			var userId = $(this).parent().parent().attr("data-id");
+			$.ajax({
+				data : { id : userId },
+				type:"GET",
+				dataType : "JSON",
+				url:"${basePath}/cardType/deleteType",
+				success : function(data){
+					location.href = '${basePath}/adminInfo/roomCard';
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+		
+		$(".manager-revise").click(function(){
+				var typeId = $(this).parent().parent().attr("data-id");
+				location.href = '${basePath}/cardType/getById?typeId=' + typeId ;
+			})
+		
+		$(".admin-new-add").click(function(){
+			location.href = '${basePath}/cardType/toAddType';
+		})
+		
+		$(".manager-second-but").click(function(){//点击下一页
+			var total = Number( $("#admin-total").text() );
+			var page = Number( $("#admin-page").text() );
+			if( total > page ){
+				personAjax( page + 1 );
+			}
+		})
+		
+		$(".manager-first-but").click(function(){//点击上一页
+			var page = Number( $("#admin-page").text() );
+			if( page > 1 ){
+				personAjax( page - 1 );
+			}
+		})
+		
+		$("#systemBut").click(function(){
+				var name = $("#cardType").val();
+				$.ajax({
+					data : { type : name },
+					type:"GET",
+					dataType : "JSON",
+					url:"${basePath}/cardType/getByType",
+					success : function(data){
+						if( data != false ){
+							$(".person-table").html("");
+							$("#admin-curent").text( data.currentPage + "/" + data.totalPages );
+							$("#admin-total").text( data.totalPages );
+							$("#admin-page").text( data.currentPage );
+							for( var i = 0; i < data.list.length; i++ ){
+								var adminObj = $(".person-obj:eq(0)").clone(true);
+								var adminArray = data.list[i];
+								adminObj.attr("data-id", adminArray.id);
+								adminObj.find(".person-typeName").text( adminArray.typeName );
+								adminObj.find(".person-cardMoney").text( adminArray.cardMoney );
+								adminObj.find(".person-cardNum").text( adminArray.cardNum )
+								$(".person-table").append( adminObj );
+							}
+						} else {
+							$(".person-table").html("");
+							$("#admin-curent").text( "1/1" );
+							$("#admin-total").text( '1' );
+							$("#admin-page").text( '1' );
+						}
+					},
+					error : function(){
+						alert("网络连接异常，请稍后再试");
+					}
+				});
+			})
+		
+		function personAjax( page ){
+			$.ajax({
+				data : { curentPage : page },
+				type:"GET",
+				url:"${basePath}/cardType/getAll",
+				success : function(data){
+					$(".person-table").html("");
+					$("#admin-curent").text( data.curentPage + "/" + data.totalPages );
+					$("#admin-total").text( data.totalPages );
+					$("#admin-page").text( data.curentPage );
+					for( var i = 0; i < data.message.length; i++ ){
+						var adminObj = $(".person-obj:eq(0)").clone(true);
+						var adminArray = JSON.parse( data.message[i] );
+						adminObj.attr("data-id", adminArray.id);
+						adminObj.find(".person-typeName").text( adminArray.typeName );
+						adminObj.find(".person-cardMoney").text( adminArray.cardMoney );
+						adminObj.find(".person-cardNum").text( adminArray.cardNum )
+						$(".person-table").append( adminObj );
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		}
+	</script>
+</html>

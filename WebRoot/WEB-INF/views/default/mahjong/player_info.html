@@ -1,0 +1,193 @@
+<!--[ arg staticPath, basePath, data ;  ]-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="manager-head">
+			<div class="person-input-item">
+				<span class="person-input-name">微信id：</span>
+				<input type="text" id="openId" value="" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">昵称：</span>
+				<input type="text" id="nickName" value="" />
+			</div>
+			<div class="manager-button">
+				<span class="mahiong-but" id="check-admin" style="margin-right: 40px;">查询</span>
+			</div>
+		</div>
+
+		<table border="1" class="manager-table">
+			<thead>
+				<tr>
+					<th>玩家id</th>
+					<th>微信id</th>
+					<th>昵称</th>
+					<th>性别</th>
+					<th>房卡总数</th>
+					<th>剩余房卡数</th>
+					<th>电话</th>
+					<th>QQ</th>
+					<th>分享父级ID</th>
+					<th>分享次数</th>
+					<th>分享时间</th>
+				</tr>
+			</thead>
+			<tbody class="person-table"></tbody>
+		</table>
+		<div>
+			<div class="manager-page-check">
+				<span class="manager-but manager-first-but" style="left: 0;">上一页</span>
+				<span id="admin-page">1</span>
+				<span class="manager-but manager-second-but" style="right: 0;">下一页</span>
+			</div>
+			<div class="manager-page-txt">当前&nbsp;<span id="admin-curent"></span>&nbsp;页，共&nbsp;<span id="admin-total"></span>&nbsp;页</div>
+		</div>
+		
+		<div style="display: none;">
+			<table>
+				<tr class="person-obj">
+					<td class="person-id"></td>
+					<td class="person-winxinid"></td>
+					<td class="person-name"></td>
+					<td class="person-sex"></td>
+					<td class="person-room-num"></td>
+					<td class="person-have-room"></td>
+					<td class="person-phone"></td>
+					<td class="person-QQ"></td>
+					<td class="person-parentId"></td>
+					<td class="person-shareNum"></td>
+					<td class="person-shareTime"></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		
+		$(function(){
+			personAjax( 1 );
+		})
+		
+		$(".manager-second-but").click(function(){//点击下一页
+			var total = Number( $("#admin-total").text() );
+			var page = Number( $("#admin-page").text() );
+			if( total > page ){
+				personAjax( page + 1 );
+			}
+		})
+		
+		$(".manager-first-but").click(function(){//点击上一页
+			var page = Number( $("#admin-page").text() );
+			if( page > 1 ){
+				personAjax( page - 1 );
+			}
+		})
+		
+		$("#check-admin").click(function(){
+				var open_id = $("#openId").val();
+				var nick_name = $("#nickName").val();
+				$.ajax({
+					data : { 
+						openId : open_id,
+						nickName : nick_name
+					},
+					type:"GET",
+					dataType : "JSON",
+					url:"${basePath}/gamerInfo/getGamer",
+					success : function(data){
+						if( data == false ){
+							$(".person-table").html("");
+							$("#admin-curent").text( "1/1" );
+							$("#admin-total").text( '1' );
+							$("#admin-page").text( '1' );
+						} else {
+							$(".person-table").html("");
+							$("#admin-curent").text( data.currentPage + "/" + data.totalPages );
+							$("#admin-total").text( data.totalPages );
+							$("#admin-page").text( data.currentPage );
+							for( var i = 0; i < data.list.length; i++ ){
+								var adminObj = $(".person-obj:eq(0)").clone(true);
+								var adminArray = data.list[i] ;
+								adminObj.find(".person-id").text( adminArray.id );
+								adminObj.find(".person-winxinid").text( adminArray.openId );
+								adminObj.find(".person-name").text( adminArray.nickName );
+								adminObj.find(".person-room-num").text( adminArray.totalCards );
+								adminObj.find(".person-have-room").text( adminArray.surplusCards );
+								adminObj.find(".person-phone").text( adminArray.telephone );
+								adminObj.find(".person-QQ").text( adminArray.qqNum );
+								if( adminArray.sex == "1" ){
+									adminObj.find(".person-sex").text( "男" );
+								} else {
+									adminObj.find(".person-sex").text( "女" );
+								}
+								adminObj.find(".person-parentId").text( adminArray.parentId );
+								adminObj.find(".person-shareNum").text( adminArray.shareNum );
+								adminObj.find(".person-shareTime").text( adminArray.shareTime );
+								/* if( adminArray.enableLogin == "0" ){
+									adminObj.find(".person-canLogin").text( "可登录" );
+								} else {
+									adminObj.find(".person-canLogin").text( "不可登录" );
+								} */
+								$(".person-table").append( adminObj );
+							}
+						}
+					},
+					error : function(){
+						alert("网络连接异常，请稍后再试");
+					}
+				});
+			})
+		
+		
+		function personAjax( page ){
+			$.ajax({
+				data : { curentPage : page },
+				type:"GET",
+				url:"${basePath}/gamerInfo/getAll",
+				success : function(data){
+					$(".person-table").html("");
+					$("#admin-curent").text( data.curentPage + "/" + data.totalPages );
+					$("#admin-total").text( data.totalPages );
+					$("#admin-page").text( data.curentPage );
+					for( var i = 0; i < data.message.length; i++ ){
+						var adminObj = $(".person-obj:eq(0)").clone(true);
+						var adminArray = JSON.parse( data.message[i] );
+						adminObj.find(".person-id").text( adminArray.id );
+						adminObj.find(".person-winxinid").text( adminArray.openId );
+						adminObj.find(".person-name").text( adminArray.nickName );
+						adminObj.find(".person-room-num").text( adminArray.totalCards );
+						adminObj.find(".person-have-room").text( adminArray.surplusCards );
+						adminObj.find(".person-phone").text( adminArray.telephone );
+						adminObj.find(".person-QQ").text( adminArray.qqNum );
+						if( adminArray.sex == "1" ){
+							adminObj.find(".person-sex").text( "男" );
+						} else {
+							adminObj.find(".person-sex").text( "女" );
+						}
+						/* if( adminArray.enableLogin == "0" ){
+							adminObj.find(".person-canLogin").text( "可登录" );
+						} else {
+							adminObj.find(".person-canLogin").text( "不可登录" );
+						} */
+						adminObj.find(".person-parentId").text( adminArray.parentId );
+						adminObj.find(".person-shareNum").text( adminArray.shareNum );
+						adminObj.find(".person-shareTime").text( adminArray.shareTime );
+						$(".person-table").append( adminObj );
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,79 @@
+<!--[arg staticPath,basePath,player;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>玩家信息</title>
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+</head>
+<body>
+	<div class="header white no-border">
+		<div class="back backBtn">
+			<img src="${staticPath}/img/back.png" alt="" />
+		</div>
+		<span class="title-center">${player.getNickName()}</span>
+	</div>
+	<!--头部栏结束-->
+	<form action="#" id="addForm">
+		<table class="white mar-top-two" data-name="" style="width: 100%;">
+			<tbody>
+			<tr class="adreess-information">
+				<td class="information-left" style="width: 30%;"><span>微信id</span></td>
+				<td class="information-right"><input type="text"
+					value="${player.getOpenId()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>性别</span></td>
+				<td class="information-right">
+				<!--[ if(player.getSex() == 1 ){  ]-->
+				<input type="text"
+					value="男" />
+				<!--[ }else{ ]-->
+				<input type="text"
+					value="女" />
+				<!--[ } ]-->	
+				</td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>房卡总数</span></td>
+				<td class="information-right"><input type="text"
+					value="${player.getTotalCards()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>剩余房卡数</span></td>
+				<td class="information-right"><input type="text"
+					value="${player.getSurplusCards()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>电话</span></td>
+				<td class="information-right"><input type="text"
+					value="${player.getTelephone()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>QQ</span></td>
+				<td class="information-right"><input type="text"
+					value="${player.getQqNum()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>可否登录</span></td>
+				<td class="information-right">
+				<!--[ if(player.getEnableLogin() == 0 ){  ]-->
+				<input type="text"
+					value="可登录" />
+				<!--[ }else{ ]-->
+				<input type="text"
+					value="不可登陆" />
+				<!--[ } ]-->
+				</td>
+			</tr>
+			</tbody>
+	</table>
+	</form>
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

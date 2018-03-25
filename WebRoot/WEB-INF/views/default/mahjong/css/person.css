@@ -1,0 +1,64 @@
+
+/*******************person*******************/
+.person-information{ padding: 20px 0; border-bottom: 1px solid #7a7a7a;}
+.person-input-item{ position: relative; padding-left: 60px; margin-bottom: 15px; height: 30px;}
+.person-input-name{ position: absolute; top: 0; left: 0; width: 60px; height: 28px; line-height: 28px;}
+.person-input-item>input{ border: 1px solid #d2d2d2; height: 100%; width: 200px; padding: 0 10px;
+	border-radius: 3px;}
+.person-login{ padding: 12px 0; line-height: 26px; border-bottom: 1px solid #7a7a7a;}
+.person-login>p{ line-height: 22px; color: #999999; position: relative; padding-left: 70px; font-size: 14px;}
+.person-login-name{ position: absolute; top: 0; left: 0; width: 70px; height: 22px;}
+.person-button{ padding-top: 20px; text-align: center;}
+.person-button>span:first-child{ margin-right: 180px;}
+
+/*******************manager*******************/
+.manager-head{ background-color: #eee; padding: 20px 28px 0px;}
+.manager-head>.person-input-item{ display: inline-block; margin-right: 60px; margin-bottom: 20px;}
+.manager-head .person-input-name{ color: #000; font-size: 14px;}
+.manager-head>.person-input-item:last-child{ margin-right: 30px;}
+.manager-button{ display: inline-block; margin-bottom: 20px;}
+.manager-table{ width: 100%; text-align: center; border-color: #d2d2d2; font-size: 14px; margin: 7px auto 15px;
+	border: 1px solid #d2d2d2; word-break: break-word;}
+.manager-table th{ text-align: center; line-height: 39px;background: -webkit-linear-gradient(bottom, #e7e7e7 0%, #f8f8f8 100%);
+	background: linear-gradient(bottom, #e7e7e7 0%, #f8f8f8 100%); 
+	background: -o-linear-gradient(bottom, #e7e7e7 0%, #f8f8f8 100%);
+	background: -moz-linear-gradient(bottom, #e7e7e7 0%, #f8f8f8 100%);}
+.manager-table td{ line-height: 32px;}
+.manager-table .manager-revise{ color: #0d9845; margin-right: 15px; cursor: pointer;}
+.manager-table .manager-revise:hover{ text-decoration: none;}
+.manager-table .manager-delete{ color: #0d9845; cursor: pointer;}
+.manager-table>tbody>tr{ cursor: pointer;}
+.manager-table>tbody>tr:nth-child(even){ background-color: #f4f3f3;}
+.manager-page-check{ position: relative; display: inline-block; padding: 0 65px; height: 25px; border: 1px solid #d2d2d2;
+	line-height: 23px; color: #0d9845; font-size: 14px; text-align: center; width: 165px; cursor: pointer;}
+.manager-but{ width: 65px; height: 23px; text-align: center; position: absolute; top: 0; color: #999;}
+.manager-first-but{ left: 0; border-right: 1px solid #d2d2d2;}
+.manager-second-but{ right: 0; border-left: 1px solid #d2d2d2;}
+.manager-page-txt{ display: inline-block; margin-left: 12px; font-size: 12px; color: #999;}
+.fix-bg{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.2);
+	z-index: 10;}
+.manger-detele-box{ position: fixed; width: 440px; height: 165px; z-index: 11;border-radius: 5px;
+	text-align: center; padding: 30px 10px;}
+.manger-detele-box>p{ font-size: 22px; color: #888; margin-bottom: 35px;}
+.manger-detele-box .mahiong-but{ background-color: #a4a4a4;}
+
+.editor-admin{ border-bottom: none !important;}
+.editor-admin .person-input-item{ padding-left: 100px;}
+.editor-admin .person-input-item .person-input-name{ width: 100px; text-align: right;}
+
+/*******************revise_password*******************/
+.revise-information{ padding-top: 30px; width: 300px;}
+.revise-information>.person-input-item{ padding-left: 95px; font-size: 14px;}
+.revise-information .person-input-name{ width: 90px; text-align: right;}
+
+/*******************add_user*******************/
+.add-user-list{ width: 200px; background: #fff; text-align: center; z-index: 10; position: absolute;
+	border: 1px solid #d2d2d2; border-radius: 3px; margin-top: 3px; display: none;}
+.add-user-list li{ line-height: 26px; border-bottom: 1px solid #d2d2d2; cursor: pointer;}
+.add-user-list li:last-child{ border-bottom: none;}
+
+/*******************add_system*******************/
+.system-add-info{ width: 100px; position: absolute; right: 50px; top: 0; height: 22px; line-height: 22px;
+	font-size: 13px;}
+
+.person-input-item textarea{ width: 350px; padding: 10px; border: 1px solid #d2d2d2;}

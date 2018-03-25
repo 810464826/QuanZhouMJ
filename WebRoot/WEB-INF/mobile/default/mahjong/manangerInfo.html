@@ -1,0 +1,157 @@
+<!--[arg staticPath,basePath,adminInfo,type;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>管理员信息</title>
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+</head>
+<body>
+	<div class="header white no-border">
+		<div class="back backBtn">
+			<img src="${staticPath}/img/back.png" alt="" />
+		</div>
+		<span class="title-center">${adminInfo.getUsername()}</span>
+	</div>
+	
+		<table class="white mar-top-two" data-name="" style="width: 100%;">
+			<tbody>
+			<tr class="border-top  adreess-information">
+				<td class="information-left" style="width: 30%;"><span>房卡数</span></td>
+				<td class="information-right"><input type="text" id="pay_cards" 
+					value="${adminInfo.getPayCards()}" /></td>
+			</tr>
+			<tr class="border-top  adreess-information">
+				<td class="information-right"><input type="hidden" id="user_id" 
+					value="${adminInfo.getId()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>类型</span></td>
+				<td class="information-right">
+				<!--[ if( adminInfo.getSysType() == 0 ){ ]-->
+					<input class="person-type" type="text" id="type"  value="超级管理员" readonly="readonly" data-type="0" />
+				<!--[ } else if( adminInfo.getSysType() == 1 ){ ]-->
+					<input class="person-type" type="text" id="type"  value="普通管理员" readonly="readonly" data-type="1" />
+				<!--[ } ]-->
+				<ul class="add-user-list">
+					<li data-type="1">普通管理员</li>
+					<li data-type="0">超级管理员</li>
+				</ul>
+				</td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>可否登录</span></td>
+				<td class="information-right">
+				<!--[ if( adminInfo.getEnableLogin()  == 0 ){ ]-->
+					<input class="person-type" type="text" id="login"  value="可以登录" readonly="readonly" data-type="0" />
+				<!--[ } else if( adminInfo.getEnableLogin()  == 1 ){ ]-->
+					<input class="person-type" type="text" id="login"  value="不可登陆" readonly="readonly" data-type="1" />
+				<!--[ } ]-->
+				<ul class="add-user-list">
+					<li data-type="1">不可登录</li>
+					<li data-type="0">可以登陆</li>
+				</ul>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>电话</span></td>
+				<td class="information-right"><input type="text" id="phone" 
+					value="${adminInfo.getTelephone()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>密码</span></td>
+				<td class="information-right"><input type="text" id="password" 
+					value="${adminInfo.getPassword()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>登陆IP</span></td>
+				<td class="information-right"><input type="text" id="ips"  disabled="true"
+					value="${adminInfo.getLoginIp()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>登陆时间</span></td>
+				<td class="information-right"><input type="text"  disabled="true"
+					value="${adminInfo.getLoginTime()}" /></td>
+			</tr>
+			</tbody>
+	</table>
+	<!--[ if( type == '0' ){ ]-->
+		<input type="button" id="mahiong_but" value="修改" />
+		<input type="button" id="mahiong_dele" value="删除" />
+	<!--[ } ]-->
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".person-type").click(function(){  
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+			$(this).parent().parent().find(".person-type").val( $(this).text() );
+		})
+		
+		$("#mahiong_dele").click(function(){
+			var id = $("#user_id").val();
+			$.ajax({
+				data : {
+					id : id
+				},
+				type : "GET",
+				url : "${basePath}/adminInfo/delete",
+				dataType : "JSON",
+				success : function(data){
+					if( data.result == true ){
+						location.href = "${basePath}/adminInfo/getAdmins";
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+		
+		$("#mahiong_but").click(function(){
+			var id = $("#user_id").val();
+			var pay_cards = $("#pay_cards").val();
+			var pass = $("#password").val();
+			var type = $("#type").attr("data-type");
+			var login = $("#login").attr("data-type");
+			var phone = $("#phone").val();
+			var ips = $("#ips").val();
+			var phoneReg = new RegExp(/^[1]\d{10}$/);
+			if( !/^[1]\d{10}$/.test(phone) ){
+				alert("请输入正确的手机号码");
+				return;
+			}
+			$.ajax({
+				data : {
+					userId : id,
+					password : pass,
+					telephone : phone,
+					sysType : type,
+					enableLogin : login,
+					payCards : pay_cards,
+					ip : ips
+				},
+				type : "GET",
+				url : "${basePath}/adminInfo/mUpdate",
+				dataType : "JSON",
+				success : function(data){
+					if( data.result == true ){
+						location.href = "${basePath}/adminInfo/getAdmins";
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+	</script>
+</body>
+</html>

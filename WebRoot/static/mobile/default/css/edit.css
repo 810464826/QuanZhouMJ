@@ -1,0 +1,11 @@
+.person_list>li{ padding-left: 100px;}
+	.person_list .person_item_name{ position: absolute; top: 0; left: 0; height: 30px;}
+	.person_list input{ width: 100%; padding: 0; border: none; text-align: right;}
+	.person_item_name>span{ padding-left: 30px;}
+	.person_item_name>img{ position: absolute; top: 15px; left: 0;}
+
+/*******************add_user*******************/
+.add-user-list{ width: 100px; background: #fff; text-align: center; z-index: 10; position: absolute;
+	border: 1px solid #d2d2d2; border-radius: 3px; margin-top: 0px; display: none; right: 0;}
+.add-user-list li{ line-height: 26px; border-bottom: 1px solid #d2d2d2; cursor: pointer;}
+.add-user-list li:last-child{ border-bottom: none;}

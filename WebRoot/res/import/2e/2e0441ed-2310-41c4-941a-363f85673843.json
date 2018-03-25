@@ -1,0 +1,48 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "logbar",
+    "data": {
+      "__id__": 1
+    }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "logbar",
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 1030,
+      "height": 30
+    },
+    "_scaleX": 1.01,
+    "_scaleY": 1.01,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": -1,
+      "y": -15
+    },
+    "_components": [
+      {
+        "__type__": "cc.Label",
+        "node": {
+          "__id__": 1
+        },
+        "_useOriginalSize": false,
+        "_actualFontSize": 25,
+        "_fontSize": 25,
+        "_lineHeight": 30,
+        "_N$string": "--页面输出--",
+        "_N$horizontalAlign": 1,
+        "_N$verticalAlign": 1,
+        "_N$overflow": 3
+      }
+    ],
+    "_prefab": {
+      "__type__": "cc.PrefabInfo",
+      "root": {
+        "__id__": 1
+      },
+      "fileId": "d1abdtu99pI8pZ2cfiCxe0D"
+    }
+  }
+]

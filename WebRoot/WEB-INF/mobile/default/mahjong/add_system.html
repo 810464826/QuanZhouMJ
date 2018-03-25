@@ -1,0 +1,80 @@
+<!--[arg staticPath,basePath;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>新增公告</title>
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+</head>
+<body>
+	<div class="header white no-border">
+		<div class="back backBtn">
+			<img src="${staticPath}/img/back.png" alt="" />
+		</div>
+		<span class="title-center">新增公告</span>
+	</div>
+	
+	<!--头部栏结束-->
+		<table class="white mar-top-two" data-name="" style="width: 100%;">
+			<tbody>
+			<tr class="adreess-information">
+				<td class="information-left" style="width: 30%;"><span>公告类型</span></td>
+				<td class="information-right">
+					<input class="person-type" type="text" id="type" readonly="readonly" />
+				<ul class="add-user-list">
+					<li>系统公告</li>
+					<li>游戏公告</li>
+					<li>奖励公告</li>
+					<li>惩罚公告</li>
+				</ul>
+				</td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>公告内容</span></td>
+				<td class="information-right"><input type="text" id="content"/></td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="button" id="mahiong_but" value="保存" />
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	$(".person-type").click(function(){
+		$(this).parent().find(".add-user-list").toggle();	
+	})
+	
+	$(".add-user-list>li").click(function(){
+		$(this).parent().hide();
+		$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+		$(this).parent().parent().find(".person-type").val( $(this).text() );
+	})
+	$("#mahiong_but").click(function(){
+		var type = $("#type").val();
+		var content = $("#content").val();
+		alert(type);
+		$.ajax({
+			data : {
+				noticeType : type,
+				noticeContent : content
+			},
+			type : "GET",
+			url : "${basePath}/sysNotice/add",
+			dataType : "JSON",
+			success : function(data){
+				if( data.result == true ){
+					location.href = "${basePath}/sysNotice/getNotices";
+				}
+			},
+			error : function(){
+				alert("网络连接异常，请稍后再试");
+			}
+		});
+	})
+	</script>
+</body>
+</html>

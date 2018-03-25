@@ -1,0 +1,39 @@
+<!--[arg staticPath,basePath,types,person;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" type="text/css" href="${staticPath}/css/index.css" />
+<title>房卡类型</title>
+</head>
+	<body>
+		<div class="header white no-border">
+		<div class="back backBtn">
+			<img src="${staticPath}/img/back.png" alt="" />
+		</div>
+		<span class="title-center">房卡类型</span>
+		&nbsp;&nbsp;&nbsp;<a href="${basePath}/payCards/toAddType">+</a>
+	</div>
+		<div class="content clearf">
+		 <ul class="list">
+				<!--[ loop(type1 : types){ ]-->
+					<li class="list-item">${type1.getId()}</li>
+				<!--[ } ]-->
+		</ul> 
+	</div>
+	<input value="${person.getSysType()}" type="hidden" id="typel" />
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".list-item").click(function(){
+			var name = $(this).text();
+			var type= $("#typel").val();
+			location.href="${basePath}/payCards/getOneType?name=" +name+ "&type="+type;
+		})
+	</script>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!--[ arg staticPath, basePath;  ]-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="revise-information">
+			<div class="person-input-item">
+				<span class="person-input-name">类型名称：</span>
+				<input type="text" value="" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">充值金额：</span>
+				<input type="number" value="" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">房卡数：</span>
+				<input type="number" value="" />
+			</div>
+			<div><span class="mahiong-but" style="margin: 35px 0 20px 95px;">保存</span></div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		
+		$(".mahiong-but").click(function(){
+			var name = $("input:eq(0)").val();
+			var money = $("input:eq(1)").val();
+			var num = $("input:eq(2)").val();
+			if( name == ""||money == ""||num=="" ){
+				alert("请输入添加内容");
+				return;
+			}
+			$.ajax({
+				data : {
+					typeName : name,
+					payNum : money,
+					payCards : num
+				},
+				type : "GET",
+				url : "${basePath}/cardType/addCardType",
+				dataType : "JSON",
+				success : function(data){
+					if( data.result == "true" ){
+						location.href = "${basePath}/adminInfo/roomCard";
+					} else if( data.result == null ){
+						alert("添加失败")
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+	</script>
+</html>

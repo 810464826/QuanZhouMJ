@@ -1,0 +1,64 @@
+<!--[arg staticPath,basePath,bili;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>代理比例</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+<link rel="stylesheet" href="${staticPath}/css/main.css" />
+<link rel="stylesheet" href="${staticPath}/css/edit.css" />
+</head>
+<body>
+	<header>
+		<div class="my-title" style="background: url(${staticPath}/image/titleBule.png) no-repeat;background-size:100% 100%;">
+			<div class="my-left">
+				<img id="backBtn" style='position:relative; z-index:99;' alt="" src="${staticPath}/image/back_new.png">
+			</div>
+			<div class="my-center" style="text-align:center;font-size: 24px;color: #fff; position:absolute; top:13px; left:0; width:100%;">
+				<span>修改比例</span>
+			</div>
+			<!-- <div class="my-right">
+				<img id="addType" alt="" style='position:relative; z-index:99;' src="${staticPath}/image/add_new.png">
+			</div> -->
+		</div>
+	</header>
+	<ul class="person_list">
+		<li>
+			<div class="person_item_name">
+				<img src="${staticPath}/image/leixing.png"/>
+				<span>代理比例</span>
+			</div>
+			<input type="text" name="" id="bili" value="${bili}" />
+		</li>
+	</ul>
+		<header>
+			<div class="header-btoom" id="mahiong_but"
+				style="background: url(${staticPath}/image/button.png) no-repeat;background-size:100% 100%;">修&nbsp;&nbsp;&nbsp;改</div>
+		</header>
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+			$(this).parent().parent().find(".person-type").val( $(this).text() );
+		})
+		$("#backBtn").click(function(){
+			window.history.go(-1);
+		})
+		
+		$("#mahiong_but").click(function(){
+			var bili = $("#bili").val();
+			location.href = "${basePath}/adminInfo/updateBili?bili="+bili;
+		})
+		
+	</script>
+</body>
+</html>

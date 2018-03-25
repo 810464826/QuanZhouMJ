@@ -1,0 +1,72 @@
+<!--[ arg staticPath, basePath, cardType;  ]-->
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="revise-information" data-num="">
+			<input type="hidden" id="type_id" value="${cardType.getId()}" />
+			<div class="person-input-item">
+				<span class="person-input-name">类型名称：</span>
+				<input id="type_name" type="text" value="${cardType.getTypeName()}" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">充值金额：</span>
+				<input type="text" id="card_money" value="${cardType.getCardMoney()}" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">房卡数量：</span>
+				<input type="text" id="card_num" value="${cardType.getCardNum()}" />
+			</div>
+			<div>
+				<span class="mahiong-but" style="margin: 35px 0 20px 95px;">修改</span>
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+	
+		$(".person-input-name").click(function(){
+			$(this).parent().find(".add-user-list").toggle();
+		})
+		
+		$(".revise-information").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".mahiong-but").click(function(){
+			var type_name = $("#type_name").val();
+			var card_money = $("#card_money").val();
+			var card_num = $("#card_num").val();
+			var type_id = $("#type_id").val();
+			$.ajax({
+				data : {
+					id : type_id,
+					typeName : type_name,
+					cardMoney : card_money,
+					cardNum : card_num
+				},
+				type : "GET",
+				url : "${basePath}/cardType/editType",
+				dataType : "JSON",
+				success : function(data){
+					if( data.result == true ){
+						location.href = "${basePath}/adminInfo/roomCard";
+					} else {
+						alert("修改失败！");
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+	</script>
+</html>

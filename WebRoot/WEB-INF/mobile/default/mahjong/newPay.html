@@ -1,0 +1,73 @@
+<!--[arg staticPath,basePath,records,person;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>充值记录</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+<link rel="stylesheet" href="${staticPath}/css/main.css" />
+<link rel="stylesheet" href="${staticPath}/css/list.css" />
+</head>
+<body>
+	<header>
+		<div class="my-title" style="background: url(${staticPath}/image/titleRed.png) no-repeat;background-size:100% 100%;">
+			<div class="my-left">
+				<img id="backBtn" style='position:relative; z-index:99;' alt="" src="${staticPath}/image/back_new.png">
+			</div>
+			<div class="my-center" style="text-align:center;font-size: 24px;color: #fff; position:absolute; top:13px; left:0; width:100%;">
+				<span>充值记录</span>
+			</div>
+			<div class="my-right">
+				<img id="addCard" alt="" style='position:relative; z-index:99;' src="${staticPath}/image/add_new.png">
+			</div>
+		</div>
+	</header>
+	<div class="admin_search">
+		<input type="text" name="" id="user-name" placeholder="请输入代理商ID" />
+		<span><img id="search" src="${staticPath}/image/search.png"/></span>
+	</div>
+	<ul class="person_list" style="margin-top: 20px;">
+		<!--[ loop(record : records){ ]-->
+			<li class="list-item" data-getId='${record.getId()}'>
+				<span class="person_item_left">代理商ID：${record.getAdminId()}</span>
+				<img class="person_item_right" style="margin-top: 15px;" src="${staticPath}/image/backm.png" />
+			</li>
+		<!--[ } ]-->
+	</ul>
+	<input value="${person.getSysType()}" type="hidden" id="typel" />
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".list-item").click(function(){
+			var name = $(this).attr('data-getId');
+			var type= $("#typel").val();
+			location.href="${basePath}/adminPay/getOneRecord?name=" +name+ "&type="+type;
+		})
+		$(".person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+			$(this).parent().parent().find(".person-type").val( $(this).text() );
+		})
+		
+		$("#addCard").click(function(){
+			location.href="${basePath}/adminPay/goToAdminPayMobile";
+		})
+		
+		$("#backBtn").click(function(){
+			window.history.go(-1);
+		})
+		
+		$("#search").click(function(){
+			var id= $("#user-name").val();
+			location.href="${basePath}/adminPay/getSameRecords?adminId="+id;
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!--[ arg staticPath, basePath;  ]-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="revise-information">
+			<div class="person-input-item">
+				<span class="person-input-name">用户名：</span>
+				<input type="text" value="" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">密码：</span>
+				<input type="text" value="" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">房卡数：</span>
+				<input type="number" value="" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">类型：</span>
+				<input id="person-type" type="text" value="普通管理员" readonly="readonly" data-type="1" />
+				<ul class="add-user-list">
+					<li data-type="1">普通管理员</li>
+					<li data-type="0">超级管理员</li>
+				</ul>
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">电话：</span>
+				<input type="tel" value="" />
+			</div>
+			<div><span class="mahiong-but" style="margin: 35px 0 20px 95px;">保存</span></div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+	
+		$("#person-type").click(function(){
+			$(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$("#person-type").attr("data-type",$(this).attr("data-type"));
+			$("#person-type").val( $(this).text() );
+		})
+		
+		$(".mahiong-but").click(function(){
+			var name = $("input:eq(0)").val();
+			var pass = $("input:eq(1)").val();
+			var num = $("input:eq(2)").val();
+			var type = $("#person-type").attr("data-type");
+			var phone = $("input:eq(4)").val();
+			var phoneReg = new RegExp(/^[1]\d{10}$/);
+			if( !/^[1]\d{10}$/.test(phone) ){
+				alert("请输入正确的手机号码");
+				return;
+			}
+			$.ajax({
+				data : {
+					username : name,
+					password : pass,
+					telephone : phone,
+					sysType : type,
+					payCards : num
+				},
+				type : "GET",
+				url : "${basePath}/adminInfo/checkName",
+				dataType : "JSON",
+				success : function(data){
+					if( data.result == true ){
+						location.href = "${basePath}/adminInfo/admin";
+					} else if( data.result == null ){
+						alert("该用户名已经被使用，请重新输入")
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+	</script>
+</html>

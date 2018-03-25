@@ -1,0 +1,143 @@
+<!--[ arg staticPath, basePath, admin,roomSize,userSize,totalSize,freeSize,threadNum;  ]-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>个人信息</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" href="${staticPath}/css/index.css" />
+<link rel="stylesheet" href="${staticPath}/css/main.css" />
+</head>
+<body>
+	<header>
+		<div class="my-title" style="background: url(${staticPath}/image/titleGreen.png) no-repeat;background-size:100% 100%;">
+			<div class="my-left">
+				<img id="backBtn" style='position:relative; z-index:99;' alt="" src="${staticPath}/image/back_new.png">
+			</div>
+			<div class="my-center" style="text-align:center;font-size: 24px;color: #fff; position:absolute; top:13px; left:0; width:100%;">
+				<span>个人信息</span>
+			</div>
+			<!-- <div class="my-right">
+				<img id="addCard" alt="" style='position:relative; z-index:99;' src="${staticPath}/image/add_new.png">
+			</div> -->
+		</div>
+	</header>
+	<input type="hidden" id="id" value="${admin.getId()}"/>
+	<ul class="person_list">
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/namem.png"/></span>
+			<span class="person_item_left">姓名</span>
+			<span class="person_item_right">${admin.getNickName()}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/phonem.png"/></span>
+			<span class="person_item_left">电话</span>
+			<span class="person_item_right">${admin.getTelephone()}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/rolem.png"/></span>
+			<span class="person_item_left">角色</span>
+			<span class="person_item_right">
+			<!--[ if(admin.getSysType() == 0 ){  ]-->
+				超级管理员
+			<!--[ }else{ ]-->
+				普通管理员
+			<!--[ } ]--></span>
+		</li>
+		<!--[ if( admin.getSysType() == 1 ){ ]-->
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/roomCard.png"/></span>
+			<span class="person_item_left">房卡总数</span>
+			<span class="person_item_right">${admin.getTotalCards()}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/roomCard.png"/></span>
+			<span class="person_item_left">剩余房卡</span>
+			<span class="person_item_right">${admin.getSurplusCards()}</span>
+		</li>
+		<!--[ } ]-->
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/timem.png"/></span>
+			<span class="person_item_left">登陆时间</span>
+			<span class="person_item_right">${admin.getLoginTime()}</span>
+		</li>
+	</ul>
+	<ul class="person_list" style="margin-top: 20px;">
+		<li id="goToPwd">
+			<span class="person_img"><img src="${staticPath}/image/pwdm.png"/></span>
+			<span class="person_item_left" style="color:#666">修改密码</span>
+			<img class="person_item_right" style="margin-top: 15px;" src="${staticPath}/image/backm.png" />
+		</li>
+	</ul>
+	<!-- 显示内存等信息 -->
+	<div style="margin-top: 30px;background: #fff;font-family: '微软雅黑';">
+	<ul class="person_list">
+		<li>
+			<span class="person_item_left">在线房间数</span>
+			<span class="person_item_right">${roomSize}</span>
+		</li>
+		<li>
+			<span class="person_item_left">在线用户数</span>
+			<span class="person_item_right">${userSize}</span>
+		</li>
+	</ul>
+		<!--在线房间数：&nbsp;&nbsp;${roomSize}<br><br>
+		在线用户数：&nbsp;&nbsp;${userSize}<br><br>
+		totalSize：&nbsp;&nbsp;${totalSize}<br><br>
+		freeSize：&nbsp;&nbsp;${freeSize}<br><br>
+		threadNum：&nbsp;&nbsp;${threadNum}<br><br> -->
+	</div>
+	<!-- <ul class="person_list">
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/namem.png"/></span>
+			<span class="person_item_left">总房间数</span>
+			<span class="person_item_right">${roomSize}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/phonem.png"/></span>
+			<span class="person_item_left">总在线人数</span>
+			<span class="person_item_right">${userSize}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/phonem.png"/></span>
+			<span class="person_item_left">总内存</span>
+			<span class="person_item_right">${totalSize}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/phonem.png"/></span>
+			<span class="person_item_left">空闲内存</span>
+			<span class="person_item_right">${freeSize}</span>
+		</li>
+		<li>
+			<span class="person_img"><img src="${staticPath}/image/phonem.png"/></span>
+			<span class="person_item_left">总线程数</span>
+			<span class="person_item_right">${threadNum}</span>
+		</li>
+	</ul> -->
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+			$(this).parent().parent().find(".person-type").val( $(this).text() );
+		})
+		
+		$("#backBtn").click(function(){
+			window.history.go(-1);
+		})
+		
+		$("#goToPwd").click(function(){
+			var id = $("#user_id").val();
+			location.href = "${basePath}/adminInfo/goToPwd";
+		})
+		
+	</script>
+</body>
+</html>

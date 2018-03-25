@@ -1,0 +1,67 @@
+<!--[arg staticPath,basePath,notices,person;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" type="text/css" href="${staticPath}/css/index.css" />
+<title>系统公告</title>
+</head>
+	<body>
+	<div class="header white no-border">
+		<div class="back backBtn">
+			<img src="${staticPath}/img/back.png" alt="" />
+		</div>
+		<span class="title-center">公告列表</span>
+		&nbsp;&nbsp;&nbsp;<a href="${basePath}/sysNotice/toAdd">+</a>
+	</div>
+	<input value="${person.getSysType()}" type="hidden" id="typel" />
+	<div class="person-input-item">
+		<span class="person-input-name">公告内容：</span>
+		<input type="text" id="user-name" value="" />
+	</div>
+	<input type="button" id="findAdmin" value="查询" id="check-admin" style="margin-right: 40px;"/>
+		<div class="content clearf">
+		 <ul class="list">
+				<!--[ loop(notice : notices){ ]-->
+					<li class="list-item" data-getId='${notice.getId()}'>${notice.getNoticeContent()}</li>
+				<!--[ } ]-->
+		</ul> 
+	</div>
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(".list-item").click(function(){
+			var name = $(this).attr('data-getId');
+			var type= $("#typel").val();
+			location.href="${basePath}/sysNotice/getOneNotice?name=" +name+ "&type="+type;
+		})
+	</script>
+	<script type="text/javascript">
+		$(".person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find(".person-type").attr("data-type",$(this).attr("data-type"));
+			$(this).parent().parent().find(".person-type").val( $(this).text() );
+		})
+		
+		$("#findAdmin").click(function(){
+			var name = $("#user-name").val();
+			$(".list-item").each(function(){
+				var itemName = $(this).text();
+				if( itemName.indexOf(name) > -1 ){
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+			})
+		})
+	</script>
+	</body>
+</html>

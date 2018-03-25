@@ -1,0 +1,39 @@
+@charset "utf-8";
+html,body,h1,h2,h3,h4,h5,h6,hr,p,iframe,dl,dt,dd,ul,ol,li,pre,form,fieldset,button,input,textarea,th,td{margin:0;padding:0}
+body{background-color:#FFF}
+body,button,input,select,textarea,fieldset,label{font:12px/1.5 "Lucida Grande",tahoma,arial,\5b8b\4f53;color:#666}
+h1,h2,h3,h4,h5,h6{font-size:100%}
+ul,ol{list-style:none}
+fieldset,img{border:0 none}
+img{-ms-interpolation-mode:bicubic}
+i,em{font-style:normal}
+table{border-collapse:collapse;border-spacing:0}
+input,select,textarea,button{font-size:100%;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
+button,input[type=button],input[type=submit]{cursor:pointer}
+input[type=search]{-webkit-appearance:textfield}
+textarea{overflow-y:auto;resize:vertical}
+.clear,.clearfix{zoom:1}
+.clear:after,.clearfix:after{content:' ';display:block;clear:both;height:0;visibility:hidden}
+.hidden,.hide{display:none}
+a{color:#333;text-decoration:none}
+a:hover{text-decoration:underline}
+
+.fx_grid_c1{width:990px;margin:0 auto}
+
+.fx_banner{background:#f0f0f0;width:1903px;overflow:hidden;position:relative}
+.fx_banner_inner{position:relative;height:502px}
+
+.fx_banner_img{width:20000px}
+.fx_banner_img li{float:left;height:502px;width:1903px;position:relative}
+.fx_banner_link{position:absolute;top:0;left:0;width:100%;height:502px;cursor:pointer}
+
+.fx_banner .child{position:absolute;width:1903px;height:502px}
+.fx_banner_common{position:relative}
+.fx_banner_common a{position:absolute;top:50%;margin-top:-315px;width:41px;height:119px;cursor:pointer;display:block;overflow:hidden;opacity:.5;filter:alpha(opacity=50);}
+.fx_banner_pre{left:0;background:url(img/ban_pre_24.png);}
+.fx_banner_next{right:0;background:url(img/ban_next_24.png);}
+.fx_banner_pre:hover,.fx_banner_next:hover{opacity:1;filter:alpha(opacity=100)}
+.fx_banner .control{width:200px;position:absolute;top:470px;left:50%;margin-left:-100px;text-align:center}
+.fx_banner .control li{display:inline-block;*display:inline;*zoom:1;margin:0 5px;width:18px;height:18px;border-radius:50%;cursor:pointer;background:#a0a183}
+.fx_banner .control li a{display:none}
+.fx_banner .control li.current{background:#ff7f02}

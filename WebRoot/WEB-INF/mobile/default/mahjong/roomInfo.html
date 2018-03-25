@@ -1,0 +1,69 @@
+<!--[arg staticPath,basePath,room;]-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>房间信息</title>
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" type="text/css" href="${staticPath}/css/index.css" />
+</head>
+<body>
+	<div class="header white no-border">
+		<div class="back backBtn">
+			<img src="${staticPath}/img/back.png" alt="" />
+		</div>
+		<span class="title-center">${room.getRoomId()}</span>
+	</div>
+	
+	<!--头部栏结束-->
+		<table class="white mar-top-two" data-name="" style="width: 100%;">
+			<tbody>
+			<tr class="border-top  adreess-information">
+				<td class="information-left" style="width: 30%;"><span>玩家1ID</span></td>
+				<td class="information-right"><input type="text"
+					value="${room.getGamerOneId()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>玩家2ID</span></td>
+				<td class="information-right"><input type="text"
+					value="${room.getGamerTwoId()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>玩家3ID</span></td>
+				<td class="information-right"><input type="text"
+					value="${room.getGamerThreeId()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>玩家4ID</span></td>
+				<td class="information-right"><input type="text"
+					value="${room.getGamerFourId()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>创建时间</span></td>
+				<td class="information-right"><input type="text"
+					value="${room.getCreateTime()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>结束时间</span></td>
+				<td class="information-right"><input type="text"
+					value="${room.getEndTime()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>已使用局数</span></td>
+				<td class="information-right"><input type="text"
+					value="${room.getUseRounds()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>总局数</span></td>
+				<td class="information-right"><input type="text"
+					value="${room.getTotalRounds()}" /></td>
+			</tr>
+			</tbody>
+	</table>
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

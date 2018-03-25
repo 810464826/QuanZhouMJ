@@ -1,0 +1,60 @@
+<!--[ arg staticPath, basePath, datas; ]-->
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <base href="${basePath}" data-staticpath="${staticPath}">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>在线支付</title>
+    <link rel="stylesheet" href="${staticPath}/mall/css/base.css"/>
+    <link rel="stylesheet" href="${staticPath}/mall/css/register.css"/>
+</head>
+<body>
+	<div class="header white no-border">
+		<div class="back">
+			<img src="${staticPath}/mall/images/register/back.png" alt="" />
+		</div>
+		<span class="title-center">支付完成</span>
+	</div>
+	<div id="aa"></div>
+	<div class="content10">
+		<div class="online-success-img">
+			<div class="img-box">
+				<img src="${staticPath}/mall/images/register/paySucIcon.png" alt="" /><span>支付成功</span>
+			</div>
+		</div>
+		<div class="order-info-box white">
+			<div   class="order-head">
+				<p>订单编号：<span>${datas.get('orderNum')}</span></p>
+			</div>
+			<div class="devider"></div>
+			<div class="order-body clearf">
+				<p>支付金额：&yen;<span>${datas.get('price')}</span></p>
+				<p class="inline-block addrL">收货地址：</p>
+				<p class="inline-block addrR fr">${datas.get('addressDatas').get('province')}${datas.get('addressDatas').get('city')}${datas.get('addressDatas').get('county')}${datas.get('addressDatas').get('address')}</p>
+			</div>
+		</div>
+		<div class="bottom">			
+			<div id="callServer" class="fl btn">查看订单</div>
+			
+			<div id="quite" class="fr btn">继续逛</div>
+			
+		</div>	
+	</div>
+	<div id="aa"></div>
+
+<script type="application/javascript" src="${staticPath}/mall/jsLib/jquery-1.11.3.min.js"></script>
+<script type="application/javascript" src="${staticPath}/mall/js/base.js"></script>
+<script type="application/javascript" src="${staticPath}/mall/js/register.js"></script>
+<script type="application/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js "></script>
+<SCRIPT TYPE="text/javascript">
+$("#callServer").tap(function(){//去逛逛
+    window.location.href = "mall/PersonOrder/list";
+});
+$("#quite").tap(function(){//去逛逛
+    window.location.href = "goodsMain";
+});
+
+</SCRIPT>
+</body>
+</html>

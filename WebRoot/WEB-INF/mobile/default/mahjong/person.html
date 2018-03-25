@@ -1,0 +1,56 @@
+<!--[ arg staticPath, basePath, admin;  ]-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>个人信息</title>
+<link rel="stylesheet" href="${staticPath}/css/help.css" />
+<link rel="stylesheet" href="${staticPath}/css/base.css" />
+<link rel="stylesheet" type="text/css" href="${staticPath}/css/index.css" />
+</head>
+<body>
+	<div class="header white no-border">
+		<div class="back backBtn">
+			<img src="${staticPath}/img/back.png" alt="" />
+		</div>
+		<span class="title-center">个人信息</span>
+	</div>
+	
+	<!--头部栏结束-->
+		<table class="white mar-top-two" data-name="" style="width: 100%;">
+			<tbody>
+			<tr class="border-top  adreess-information">
+				<td class="information-left" style="width: 30%;"><span>姓名</span></td>
+				<td class="information-right"><input type="text" value="${admin.getUsername()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>联系电话</span></td>
+				<td class="information-right"><input type="text" value="${admin.getTelephone()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>用户角色</span></td>
+				<td class="information-right">
+				<!--[ if(admin.getSysType() == 0 ){  ]-->
+				<input type="text" value="超级管理员" />
+			<!--[ }else{ ]-->
+				<input type="text" value="普通管理员" />
+			<!--[ } ]-->
+				</td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>登录IP</span></td>
+				<td class="information-right"><input type="text" value="${admin.getLoginIp()}" /></td>
+			</tr>
+			<tr class="adreess-information">
+				<td class="information-left"><span>登陆时间</span></td>
+				<td class="information-right"><input type="text" value="${admin.getLoginTime()}" /></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<script type="text/javascript" src="${staticPath}/front/js/jquery-1.19.3.min.js"></script>
+	<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

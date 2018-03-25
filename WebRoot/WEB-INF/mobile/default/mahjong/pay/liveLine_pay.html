@@ -1,0 +1,50 @@
+<!--[ arg staticPath, basePath, datas; ]-->
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <base href="${basePath}" data-staticpath="${staticPath}">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>在线支付</title>
+    <link rel="stylesheet" href="${staticPath}/mall/css/base.css"/>
+    <link rel="stylesheet" href="${staticPath}/mall/css/register.css"/>
+</head>
+<body class="white" >
+	<div class="header">
+		<div class="back liveLine_pay-back">
+			<img src="${staticPath}/mall/images/register/back.png" alt="" />
+		</div>
+		<span class="title-center">在线支付</span>
+	</div>
+	<div class="head-online-pay content10">
+		实付金额：<span class="list-active">&yen;<span>${datas.get('realyprice')}</span></span>
+	</div>
+	<div class="content">
+		
+				<div class="pay-way pay-checked" id="weixin"  onclick="togPayWay()">
+					<img src="${staticPath}/mall/images/register/weixinpay.png"/>
+				</div>
+			
+		<a >
+			<div id="onlinePayNow" class="sub-but sub-but-active">现在支付</div>
+		</a>
+	</div>
+	
+	<div class="x-mask"></div>   <!-- 遮罩层 -->
+	<div class="x-alert x-alert-box">  <!-- 弹出框 -->
+		
+		<div class="btn-box">
+			<a class="cancel" >取消</a>
+			<a class="sure" >确定</a>
+		</div>
+	</div>
+	
+    <form id="online_weixin_pay" action="mall/WeixinPay/index" method="get" target="_blank">
+    	<input name="orderNum" type="hidden" value="${datas.get('ordernum')}"/>
+    	<input name="totalFee" type="hidden" value="${datas.get('realyprice')}"/>
+    </form>
+<script type="application/javascript" src="${staticPath}/mall/jsLib/jquery-1.11.3.min.js"></script>
+<script type="application/javascript" src="${staticPath}/mall/js/base.js"></script>
+<script type="application/javascript" src="${staticPath}/mall/js/register.js"></script>
+</body>
+</html>

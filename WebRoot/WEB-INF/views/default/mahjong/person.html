@@ -1,0 +1,54 @@
+<!--[ arg staticPath, basePath, admin,roomSize,userSize,totalSize,freeSize,threadNum;  ]-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="person-information" data-type="false">
+			<div class="person-input-item">
+				<span class="person-input-name">姓名：</span>
+				<input type="text" value="${admin.getNickName()}" readonly="readonly" style="color: #979797;" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">总卡：</span>
+				<input type="text" value="${admin.getTotalCards()}" readonly="readonly" style="color: #979797;" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">余卡：</span>
+				<input type="text" value="${admin.getSurplusCards()}" readonly="readonly" style="color: #979797;" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">密码：</span>
+				<input type="text" value="${admin.getPassword()}" readonly="readonly" style="color: #979797;" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">电话：</span>
+				<input type="tel" value="${admin.getTelephone()}" readonly="readonly" style="color: #979797;" />
+			</div>
+		</div>
+		<div class="person-login">
+			<p><span class="person-login-name">用户角色：</span><span>
+			<!--[ if(admin.getSysType() == 0 ){  ]-->
+				超级管理员
+			<!--[ }else{ ]-->
+				普通管理员
+			<!--[ } ]-->
+			</span></p>
+		</div>
+		<!-- 显示内存等信息 -->
+	<div style="margin-top: 10px;background: #fff;font-family: '微软雅黑';">
+		roomSize：${roomSize}<br><br>
+		userSize：${userSize}<br><br>
+		totalSize：${totalSize}<br><br>
+		freeSize：${freeSize}<br><br>
+		threadNum：${threadNum}<br><br>
+	</div>
+	</body>
+</html>

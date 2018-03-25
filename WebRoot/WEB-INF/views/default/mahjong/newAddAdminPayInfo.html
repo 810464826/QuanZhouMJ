@@ -1,0 +1,94 @@
+<!--[ arg staticPath, basePath, payCards, userType, cardType;  ]-->
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="revise-information" data-num="${payCards}">
+			<div class="person-input-item">
+				<span class="person-input-name">代理商ID：</span>
+				<input type="number" id="player-id" value="" />
+			</div>
+			<input type="hidden" id="user-type" value="${userType}" />
+			<div class="person-input-item">
+				<span class="person-input-name">类型名称：</span>
+				<input id="person-type" type="text" value="" readonly="readonly" />
+				<ul class="add-user-list">
+				<!--[ loop(type : cardType){ ]-->
+					<li>${type}</li>
+				<!--[ } ]-->
+				</ul>
+			</div>
+			
+			<div class="person-input-item">
+				<span class="person-input-name">游戏类型：</span>
+				<input type="text"  value="" id="game-type" readonly="readonly"/>
+				<ul class="add-user-list">
+					<li>洮南麻将</li>
+				</ul>
+			</div>
+			
+			<div class="person-input-item">
+				<span class="person-input-name">充值金额：</span>
+				<input type="number" id="room-money" value="" />
+			</div>
+			<div><span class="mahiong-but" style="margin: 35px 0 20px 95px;">保存</span></div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+	
+		$("#person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();
+		})
+		
+		$("#game-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find("#game-type").val( $(this).text() );
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find("#person-type").val( $(this).text() );
+		})
+		
+		$(".mahiong-but").click(function(){
+			var userId = $("#player-id").val();
+			var type = $("#person-type").val();
+			var gameType = $("#game-type").val();
+			var money = $("#room-money").val();
+			$.ajax({
+				data : {
+					adminId : userId,
+					gameType : gameType,
+					payNum : money,
+					typeName : type
+				},
+				type : "GET",
+				url : "${basePath}/payRecord/addPayCardForAdmin",
+				dataType : "JSON",
+				success : function(data){
+					if( data.result == true ){
+						location.href = "${basePath}/adminInfo/recharge";
+					} else {
+						alert("被充值管理员ID有误或不存在，请重新输入");
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+	</script>
+</html>

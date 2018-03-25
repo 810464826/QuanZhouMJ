@@ -1,0 +1,94 @@
+<!--[ arg staticPath, basePath, types;  ]-->
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="revise-information" data-num="">
+			<div class="person-input-item">
+				<span class="person-input-name">玩家ID：</span>
+				<input type="number" id="player-id" value="" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">类型名称：</span>
+				<input id="person-type" type="text" value="" readonly="readonly" />
+				<ul class="add-user-list">
+				<!--[ loop(type : types){ ]-->
+					<li>${type}</li>
+				<!--[ } ]-->
+				</ul>
+			</div>
+			
+			<!-- <div class="person-input-item">
+				<span class="person-input-name">游戏类型：</span>
+				<input type="text"  value="" id="game-type" readonly="readonly"/>
+				<ul class="add-user-list">
+					<li>泉州麻将</li>
+				</ul>
+			</div> -->
+			
+			<div class="person-input-item">
+				<span class="person-input-name">充值金额：</span>
+				<input type="number" id="room-money" value="" />
+			</div>
+			<div>
+				<span class="mahiong-but" style="margin: 35px 0 20px 95px;">充值</span>
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+	
+		$("#person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();
+		})
+		
+		$(".game-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find("#game-type").val( $(this).text() );
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find("#person-type").val( $(this).text() );
+		})
+		
+		
+		$(".mahiong-but").click(function(){
+			var gamerId = $("#player-id").val();
+			var payType = $("#person-type").val();
+			var payMoney = $("#room-money").val();
+			$.ajax({
+				data : {
+					gamerId : gamerId,
+					payType : payType,
+					payMoney : payMoney
+				},
+				type : "GET",
+				url : "${basePath}/gamerPay/payForGamer",
+				dataType : "JSON",
+				success : function(data){
+					if( data.result == true ){
+						location.href = "${basePath}/adminInfo/rechargeGamer";
+					} else {
+						alert("被充值玩家ID有误或您得房卡不足，请重新输入");
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+	</script>
+</html>

@@ -1,0 +1,126 @@
+<!--[ arg staticPath, basePath, payCards, userType, cardType;  ]-->
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<meta name="format-detection" content="telephone=no"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,
+                               maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<link rel="stylesheet" href="${staticPath}/css/help.css" />
+		<link rel="stylesheet" href="${staticPath}/css/base.css" />
+		<link rel="stylesheet" href="${staticPath}/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+	</head>
+	<body>
+	<div class="header white no-border">
+		<div class="back backBtn">
+			<img src="${staticPath}/img/back.png" alt="" />
+		</div>
+		<span class="title-center">房卡充值</span>
+	</div>
+		<div class="revise-information" data-num="${payCards}">
+			<div class="person-input-item">
+				<span class="person-input-name">玩家ID：</span>
+				<input type="number" id="player-id" value="" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">微信ID：</span>
+				<input type="text" id="player-winxinid" value="" />
+			</div>
+			<input type="hidden" id="user-type" value="${userType}" />
+			<div class="person-input-item">
+				<span class="person-input-name">类型名称：</span>
+				<input id="person-type" type="text" value="" readonly="readonly"/>
+				<ul class="add-user-list">
+				<!--[ loop(type : cardType){ ]-->
+					<li>${type}</li>
+				<!--[ } ]-->
+				</ul>
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">游戏类型：</span>
+				<input type="text"  value="" id="game-type" readonly="readonly"/>
+				<ul class="add-user-list">
+					<li>洮南麻将</li>
+				</ul>
+			</div>
+			
+			<div class="person-input-item">
+				<span class="person-input-name">充值金额：</span>
+				<input type="number" id="room-money" value="" />
+			</div>
+			<div class="person-input-item">
+				<span class="person-input-name">房卡数：</span>
+				<input type="number" value="" id="room-number"/>
+			</div>
+			<input type="button" id="mahiong_but" value="充值" />
+		</div>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+		<script src="${staticPath}/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	
+		$("#person-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();
+		})
+		
+		$("#game-type").click(function(){
+			$(this).parent().find(".add-user-list").toggle();	
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find("#game-type").val( $(this).text() );
+		})
+		
+		$(".add-user-list>li").click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().find("#person-type").val( $(this).text() );
+		})
+		
+		$("#mahiong_but").click(function(){
+			var userId = $("#player-id").val();
+			var userWinxinId = $("#player-winxinid").val();
+			var userType = $("#user-type").val();
+			var canNum = Number($(".revise-information").attr("data-num"));
+			var type = $("#person-type").val();
+			var gameType = $("#game-type").val();
+			var money = $("#room-money").val();
+			var num = Number($("#room-number").val());
+			if( userType == "1" && num > canNum ){
+				alert("输入的房卡数已大于可充值的房卡数，无法充值");
+				return;
+			}
+			if( userWinxinId == "" ){
+				userWinxinId = "0";
+			}
+			$.ajax({
+				data : {
+					gamerId : userId,
+					openId : userWinxinId,
+					payCards : num,
+					gameType : gameType,
+					payNum : money,
+					typeName : type
+				},
+				type : "GET",
+				url : "${basePath}/payCards/add",
+				dataType : "JSON",
+				success : function(data){
+					if( data.result == true ){
+						location.href = "${basePath}/payRecord/getAllRecords";
+					} else if( data.result == "gamerFalse" ){
+						alert("被充值玩家ID有误或不存在，请重新输入");
+					}
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+	</script>
+	</body>
+</html>

@@ -1,0 +1,232 @@
+<!--[ arg staticPath ,basePath,userType;  ]-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>锤石科技</title>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${staticPath}/css/person.css"/>
+		<script type="text/javascript" src="${staticPath}/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="${staticPath}/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="manager-head">
+			<div class="person-input-item">
+				<span class="person-input-name">管理员ID</span>
+				<input type="text" id="user-name" value="" />
+			</div>
+			<div class="manager-button">
+				<span class="mahiong-but" id="check-admin" style="margin-right: 40px;">查询</span>
+				<span class="mahiong-but admin-new-add" style="width: 120px;">新增管理员</span>
+			</div>
+		</div>
+		
+		<table border="1" class="manager-table">
+			<thead data-type = "">
+				<tr>
+					<th style="width: 10%;">管理员ID</th>
+					<th style="width: 10%;">管理员类型</th>
+					<th style="width: 10%;">房卡总数</th>
+					<th style="width: 10%;">剩余房卡数</th>
+					<th style="width: 20%;">管理员昵称</th>
+					<th style="width: 10%;">电话</th>
+					<th style="width: 20%;">登录时间</th>
+					<th style="width: 10%;">操 作</th>
+				</tr>
+			</thead>
+			<tbody id="admin-table"></tbody>
+		</table>
+		<div style="position: relative;">
+			<div class="manager-page-check">
+				<span class="manager-but manager-first-but" style="left: 0;">上一页</span>
+				<span id="admin-page">1</span>
+				<span class="manager-but manager-second-but" style="right: 0;">下一页</span>
+			</div>
+			<div class="manager-page-txt">当前&nbsp;<span id="admin-curent"></span>&nbsp;页，共&nbsp;<span id="admin-total"></span>&nbsp;页</div>
+		</div>
+		
+		<div id="manager-detele" style="display: none;">
+			<div class="fix-bg"></div>
+			<div class="manger-detele-box white"  data-manager = "">
+				<p>
+					<img src="${staticPath}/image/detele.png"/>
+					<span>确认要删除该用户吗？</span>
+				</p>
+				<div>
+					<span class="mahiong-but manger-sure-detele" style="margin-right: 66px;">确定</span>
+					<span class="mahiong-but manger-cancel-detele">取消</span>
+				</div>
+			</div>
+		</div>
+		
+		<div style="display: none;">
+			<table>			
+				<tr class="admin-obj" data-id="">
+					<td class="admin-id"></td>
+					<td class="admin-type"></td>
+					<td class="admin-allCards"></td>
+					<td class="admin-subCards"></td>
+					<td class="admin-name"></td>
+					<td class="admin-phone"></td>
+					<td class="admin-loginTime"></td>
+					<td><a class="manager-revise">修改</a><span class="manager-delete">删除</span></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		var width = $(window).width(), height = $(window).height(), deteleObj = null;
+		
+		$(function(){
+			adminAjax( 1 );
+			
+			$(".admin-new-add").click(function(){
+				location.href = '${basePath}/adminInfo/addAdmin';
+			})
+			
+			$(".manager-revise").click(function(){
+				var adminID = $(this).parent().parent().attr("data-id");
+				location.href = '${basePath}/adminInfo/getById?userId=' + adminID ;
+			})
+			
+			$("#check-admin").click(function(){
+				var name = $("#user-name").val();
+				$.ajax({
+					data : { adminId : name },
+					type:"GET",
+					dataType : "JSON",
+					url:"${basePath}/adminInfo/getAdminByAdminId",
+					success : function(data){
+						if( data != false ){
+							checkLoad( data );
+						} else {
+							$("#admin-table").html("");
+							$("#admin-curent").text( "1/1" );
+							$("#admin-total").text( '1' );
+							$("#admin-page").text( '1' );
+						}
+					},
+					error : function(){
+						alert("网络连接异常，请稍后再试");
+					}
+				});
+			})
+		})
+		function checkLoad( data ){
+			$("#admin-table").html("");
+			$("#admin-curent").text( data.currentPage + "/" + data.totalPages );
+			$("#admin-total").text( data.totalPages );
+			$("#admin-page").text( data.currentPage );
+			for( var i = 0; i < data.list.length; i++ ){
+				var adminObj = $(".admin-obj:eq(0)").clone(true);
+				var adminArray = data.list[i];
+				adminObj.attr("data-id",adminArray.id);
+				adminObj.find(".admin-id").text( adminArray.adminId );
+				if( adminArray.sysType == "0" ){
+					adminObj.find(".admin-type").text( "超级管理员" );
+					adminObj.find(".admin-allCards").text( "+∞" );
+					adminObj.find(".admin-subCards").text( "+∞" );
+				} else {
+					adminObj.find(".admin-type").text( "普通管理员" );
+					adminObj.find(".admin-allCards").text( adminArray.totalCards );
+					adminObj.find(".admin-subCards").text( adminArray.surplusCards);
+				}
+				adminObj.find(".admin-name").text( adminArray.nickName );
+				adminObj.find(".admin-phone").text( adminArray.telephone );
+				adminObj.find(".admin-loginTime").text( adminArray.loginTime );
+				$("#admin-table").append( adminObj );
+			}
+		}
+		
+		$(".manager-second-but").click(function(){//点击下一页
+			var total = Number( $("#admin-total").text() );
+			var page = Number( $("#admin-page").text() );
+			if( total > page ){
+				adminAjax( page + 1 );
+			}
+		})
+		
+		$(".manager-first-but").click(function(){//点击上一页
+			var page = Number( $("#admin-page").text() );
+			if( page > 1 ){
+				adminAjax( page - 1 );
+			}
+		})
+		
+		$(".manager-delete").click(function(){//点击“删除”按钮，弹出对话框
+			var id = $(this).parent().parent().attr("data-id");
+			var boxHeight = $(".manger-detele-box").height();
+			var boxWidth = $(".manger-detele-box").width();
+			deteleObj = $(this).parent().parent();
+			$("#manager-detele").show(300);
+			$(".manger-detele-box").attr("data-manager",id);
+			$(".manger-detele-box").css({"top" : (height - boxHeight)/2, "left" : (width - boxWidth)/2 });
+		})
+		
+		$(".manger-sure-detele").click(function(){//确定删除管理员
+			var userId = $(".manger-detele-box").attr("data-manager");
+			$.ajax({
+				data : { id : userId },
+				type:"GET",
+				dataType : "JSON",
+				url:"${basePath}/adminInfo/delete",
+				success : function(data){
+					$("#manager-detele").hide();
+					if( data.result == true ){
+						deteleObj.hide(300);
+					};
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		})
+		
+		$(".manger-cancel-detele").click(function(){
+			$("#manager-detele").hide(300);
+		})
+		
+		function adminAjax( page ){
+			$.ajax({
+				data : { curentPage : page },
+				type:"GET",
+				dataType : "JSON",
+				url:"${basePath}/adminInfo/getPageAdminInfo",
+				success : function(data){
+					dataLoad( data );
+				},
+				error : function(){
+					alert("网络连接异常，请稍后再试");
+				}
+			});
+		}
+		
+		function dataLoad( data ){
+			$("#admin-table").html("");
+			$("#admin-curent").text( data.curentPage + "/" + data.totalPages );
+			$("#admin-total").text( data.totalPages );
+			$("#admin-page").text( data.curentPage );
+			for( var i = 0; i < data.allAdmins.length; i++ ){
+				var adminObj = $(".admin-obj:eq(0)").clone(true);
+				var adminArray = JSON.parse( data.allAdmins[i] );
+				adminObj.attr("data-id",adminArray.id);
+				adminObj.find(".admin-id").text( adminArray.adminId );
+				if( adminArray.sysType == "0" ){
+					adminObj.find(".admin-type").text( "超级管理员" );
+					adminObj.find(".admin-allCards").text( "+∞" );
+					adminObj.find(".admin-subCards").text( "+∞" );
+				} else {
+					adminObj.find(".admin-type").text( "普通管理员" );
+					adminObj.find(".admin-allCards").text( adminArray.totalCards );
+					adminObj.find(".admin-subCards").text( adminArray.surplusCards);
+				}
+				adminObj.find(".admin-name").text( adminArray.nickName );
+				adminObj.find(".admin-phone").text( adminArray.telephone );
+				adminObj.find(".admin-loginTime").text( adminArray.loginTime );
+				$("#admin-table").append( adminObj );
+			}
+		}
+	</script>
+</html>
